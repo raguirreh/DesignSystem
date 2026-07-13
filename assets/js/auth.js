@@ -100,12 +100,12 @@
       op.then(function (res) {
         if (res.error) {
           var m = res.error.message || "";
-          if (/EMAIL_NO_AUTORIZADO|not allowed|Database error/i.test(m)) {
-            showMsg("Este correo no tiene acceso. Pídele a tu administrador que lo agregue.", "err");
-          } else if (/Invalid login credentials/i.test(m)) {
+          if (/Invalid login credentials/i.test(m)) {
             showMsg("Correo o contraseña incorrectos.", "err");
           } else if (/Email not confirmed/i.test(m)) {
             showMsg("Debes confirmar tu correo antes de entrar. Revisa tu bandeja.", "err");
+          } else if (/User already registered/i.test(m)) {
+            showMsg("Ese correo ya tiene una cuenta. Inicia sesión.", "err");
           } else {
             showMsg(m, "err");
           }
@@ -113,12 +113,12 @@
           submit.textContent = prev;
           return;
         }
-        if (mode === "register" && !res.data.session) {
-          showMsg("¡Casi listo! Te enviamos un correo para confirmar tu cuenta. Confírmalo y luego inicia sesión.", "ok");
+        if (mode === "register") {
+          showMsg("Cuenta creada. Tu acceso queda pendiente de aprobación de un administrador. Si te pedimos confirmar el correo, revísalo primero.", "ok");
           submit.disabled = false;
           submit.textContent = prev;
         }
-        // Si hay sesión, onAuthStateChange se encarga.
+        // Si hay sesión, onAuthStateChange evaluará el acceso (aprobado o pendiente).
       });
     });
 
@@ -131,16 +131,21 @@
     });
   }
 
-  /* ---------- Sin acceso (autenticado pero fuera de la lista) ---------- */
-  function renderNoAccess(email) {
+  /* ---------- Autenticado pero aún sin acceso aprobado ---------- */
+  function renderPending(email, status) {
+    var rejected = status === "rejected";
     overlay.innerHTML =
       '<div class="auth-card">' +
         '<div class="auth-brand"><span class="auth-mark">◈</span><span class="auth-brandname">Pacífico · Design System</span></div>' +
-        '<h2 class="auth-title">Sin acceso</h2>' +
-        '<p class="auth-help">La cuenta <strong>' + esc(email) + '</strong> no está autorizada para ver esta documentación. Contacta a tu administrador para solicitar acceso.</p>' +
+        '<h2 class="auth-title">' + (rejected ? "Solicitud rechazada" : "Solicitud en revisión") + "</h2>" +
+        '<p class="auth-help">' +
+          (rejected
+            ? "La solicitud de acceso de <strong>" + esc(email) + "</strong> fue rechazada. Si crees que es un error, contacta a tu administrador."
+            : "La cuenta <strong>" + esc(email) + "</strong> está <strong>pendiente de aprobación</strong>. Te avisaremos cuando un administrador apruebe tu acceso.") +
+        "</p>" +
         '<button class="auth-submit" id="auth-signout">Cerrar sesión</button>' +
         '<p class="auth-footer">Pacífico Salud · Experiencia y Diseño</p>' +
-      '</div>';
+      "</div>";
     overlay.querySelector("#auth-signout").addEventListener("click", function () {
       sb.auth.signOut();
     });
@@ -149,17 +154,22 @@
   /* ---------- Evaluar acceso ---------- */
   function evaluate(session) {
     currentUser = session.user;
+    var email = (session.user.email || "").toLowerCase();
     return sb.from("allowed_emails")
-      .select("role, full_name, email")
-      .eq("email", (session.user.email || "").toLowerCase())
+      .select("role")
+      .eq("email", email)
       .maybeSingle()
       .then(function (res) {
         if (res.data) {
           currentRole = res.data.role;
           grant();
-        } else {
-          renderNoAccess(session.user.email);
+          return;
         }
+        // No aprobado todavía: consultar el estado de su solicitud
+        return sb.from("access_requests").select("status").eq("email", email).maybeSingle()
+          .then(function (r2) {
+            renderPending(session.user.email, r2.data && r2.data.status);
+          });
       });
   }
 
@@ -199,13 +209,25 @@
       '<div class="admin-backdrop" data-close></div>' +
       '<div class="admin-panel" role="dialog" aria-modal="true" aria-label="Administrar accesos">' +
         '<div class="admin-head"><h2>Administrar accesos</h2><button class="admin-close" data-close aria-label="Cerrar">✕</button></div>' +
-        '<form class="admin-add" id="admin-add">' +
-          '<input type="email" id="admin-new-email" placeholder="correo@pacifico.com.pe" required />' +
-          '<select id="admin-new-role"><option value="member">Miembro</option><option value="admin">Admin</option></select>' +
-          '<button type="submit">Añadir</button>' +
-        '</form>' +
-        '<p class="admin-msg" id="admin-msg" hidden></p>' +
-        '<div class="admin-list" id="admin-list"><p class="admin-loading">Cargando…</p></div>' +
+        '<div class="admin-body">' +
+          '<div class="admin-section">' +
+            '<h3 class="admin-subtitle">Solicitudes pendientes <span class="admin-badge" id="admin-req-count" hidden>0</span></h3>' +
+            '<div class="admin-req-list" id="admin-req-list"><p class="admin-loading">Cargando…</p></div>' +
+          '</div>' +
+          '<div class="admin-section">' +
+            '<h3 class="admin-subtitle">Añadir directamente</h3>' +
+            '<form class="admin-add" id="admin-add">' +
+              '<input type="email" id="admin-new-email" placeholder="correo@pacifico.com.pe" required />' +
+              '<select id="admin-new-role"><option value="member">Miembro</option><option value="admin">Admin</option></select>' +
+              '<button type="submit">Añadir</button>' +
+            '</form>' +
+            '<p class="admin-msg" id="admin-msg" hidden></p>' +
+          '</div>' +
+          '<div class="admin-section">' +
+            '<h3 class="admin-subtitle">Con acceso</h3>' +
+            '<div class="admin-list" id="admin-list"><p class="admin-loading">Cargando…</p></div>' +
+          '</div>' +
+        '</div>' +
       '</div>';
     document.body.appendChild(modal);
     modal.querySelectorAll("[data-close]").forEach(function (el) {
@@ -243,6 +265,52 @@
         });
     }
 
+    // ---- Solicitudes pendientes ----
+    var reqList = modal.querySelector("#admin-req-list");
+    var reqCount = modal.querySelector("#admin-req-count");
+
+    function loadRequests() {
+      sb.from("access_requests").select("email, full_name, created_at")
+        .eq("status", "pending").order("created_at", { ascending: true })
+        .then(function (res) {
+          if (res.error) { reqList.innerHTML = '<p class="admin-loading">Error: ' + esc(res.error.message) + "</p>"; return; }
+          var rows = res.data || [];
+          reqCount.hidden = rows.length === 0;
+          reqCount.textContent = rows.length;
+          if (!rows.length) { reqList.innerHTML = '<p class="admin-empty">No hay solicitudes pendientes.</p>'; return; }
+          reqList.innerHTML = rows.map(function (r) {
+            return '<div class="admin-item admin-req">' +
+              '<span class="admin-email">' + esc(r.email) + "</span>" +
+              '<button class="admin-approve" data-email="' + esc(r.email) + '">Aprobar</button>' +
+              '<button class="admin-reject" data-email="' + esc(r.email) + '">Rechazar</button>' +
+              "</div>";
+          }).join("");
+          reqList.querySelectorAll(".admin-approve").forEach(function (b) {
+            b.addEventListener("click", function () {
+              var email = b.dataset.email;
+              b.disabled = true;
+              // Aprobar = añadir a la lista de accesos + marcar la solicitud
+              sb.from("allowed_emails").insert({ email: email, role: "member", invited_by: currentUser.email })
+                .then(function (r1) {
+                  if (r1.error && !/duplicate|already exists/i.test(r1.error.message)) {
+                    showMsg(r1.error.message, "err"); b.disabled = false; return;
+                  }
+                  sb.from("access_requests").update({ status: "approved", decided_at: new Date().toISOString(), decided_by: currentUser.email }).eq("email", email)
+                    .then(function () { showMsg("Acceso aprobado para " + email + ".", "ok"); loadRequests(); load(); });
+                });
+            });
+          });
+          reqList.querySelectorAll(".admin-reject").forEach(function (b) {
+            b.addEventListener("click", function () {
+              var email = b.dataset.email;
+              if (!confirm("¿Rechazar la solicitud de " + email + "?")) return;
+              sb.from("access_requests").update({ status: "rejected", decided_at: new Date().toISOString(), decided_by: currentUser.email }).eq("email", email)
+                .then(function (res) { if (res.error) showMsg(res.error.message, "err"); else { showMsg("Solicitud rechazada.", "ok"); loadRequests(); } });
+            });
+          });
+        });
+    }
+
     modal.querySelector("#admin-add").addEventListener("submit", function (e) {
       e.preventDefault();
       var email = modal.querySelector("#admin-new-email").value.trim().toLowerCase();
@@ -258,6 +326,7 @@
       });
     });
 
+    loadRequests();
     load();
   }
 
