@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Design System</title>
+  <meta name="description" content="Documentación del Design System: fundamentos, principios de diseño, componentes y recursos." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◈</text></svg>" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#/">
+        <span class="brand-mark">◈</span>
+        <span class="brand-name">Design System</span>
+      </a>
+      <nav class="header-nav" id="header-nav" aria-label="Secciones"></nav>
+      <div class="header-actions">
+        <button class="search-trigger" id="search-trigger" type="button" aria-label="Buscar">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+          <span>Buscar</span>
+          <kbd>⌘K</kbd>
+        </button>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Cambiar tema">
+          <span class="theme-icon-light">☀️</span>
+          <span class="theme-icon-dark">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="app">
+    <div class="loading">Cargando…</div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p id="footer-text">Design System · Documentación viva</p>
+      <a id="footer-figma-link" href="#" target="_blank" rel="noopener" hidden>Abrir librería en Figma ↗</a>
+    </div>
+  </footer>
+
+  <!-- Buscador global -->
+  <div class="search-overlay" id="search-overlay" hidden>
+    <div class="search-backdrop" data-close-search></div>
+    <div class="search-panel" role="dialog" aria-modal="true" aria-label="Buscador">
+      <div class="search-input-row">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="search" id="search-input" placeholder="¿Qué necesitas saber hoy?" autocomplete="off" spellcheck="false" />
+        <button class="search-close" type="button" data-close-search aria-label="Cerrar">Esc</button>
+      </div>
+      <div class="search-results" id="search-results">
+        <p class="search-hint">Escribe para buscar en toda la documentación: componentes, colores, principios, tokens…</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/vendor/marked.min.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
