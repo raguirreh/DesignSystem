@@ -495,12 +495,23 @@
 
   window.addEventListener("hashchange", route);
 
-  loadManifest()
-    .then(() => {
-      route();
-      buildSearchIndex();
-    })
-    .catch((err) => {
-      app.innerHTML = '<div class="loading">Error al cargar la documentación: ' + escapeHtml(err.message) + "</div>";
-    });
+  // El arranque lo dispara el gate de acceso (auth.js) una vez validado
+  // el usuario. Si no hay gate de auth cargado, arranca directamente.
+  let started = false;
+  window.__startDocs = function () {
+    if (started) return;
+    started = true;
+    loadManifest()
+      .then(() => {
+        route();
+        buildSearchIndex();
+      })
+      .catch((err) => {
+        app.innerHTML = '<div class="loading">Error al cargar la documentación: ' + escapeHtml(err.message) + "</div>";
+      });
+  };
+
+  if (!window.__DS_AUTH__) {
+    window.__startDocs();
+  }
 })();
