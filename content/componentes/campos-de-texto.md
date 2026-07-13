@@ -3,8 +3,40 @@
 Los campos de texto permiten introducir y editar información. Son la base de todos los formularios. La **Global Components Library** incluye `Input / Text Field` y `Input / Select`, ambos con la misma matriz de estados y tamaños.
 
 :::info
-Embebe el componente real con `::figma <url del frame de Input>` para ver todas las combinaciones de estado en vivo.
+Los campos de abajo están construidos con los tokens reales (modo Pacífico) sobre fondo blanco. Para ver el frame de Figma, embébelo con `::figma <url del frame de Input>`.
 :::
+
+## Previsualización
+
+<div class="ds-preview">
+<div class="ds-field">
+<label class="ds-label">Correo electrónico</label>
+<div class="ds-input"><span class="ph">nombre@correo.com</span></div>
+<span class="ds-help">Te enviaremos la confirmación aquí.</span>
+</div>
+<div class="ds-field">
+<label class="ds-label">Correo electrónico</label>
+<div class="ds-input is-focus"><span>ana@pacifico.pe</span></div>
+<span class="ds-help">Focus</span>
+</div>
+<div class="ds-field">
+<label class="ds-label">Correo electrónico</label>
+<div class="ds-input is-error"><span>ana.pacifico.pe</span></div>
+<span class="ds-help err"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16h.01"/></svg>El correo debe incluir @.</span>
+</div>
+</div>
+
+<div class="ds-preview">
+<div class="ds-field">
+<label class="ds-label">Deshabilitado</label>
+<div class="ds-input is-disabled"><span class="ph">No editable</span></div>
+</div>
+<div class="ds-field">
+<label class="ds-label">Sede <span class="req">*</span></label>
+<div class="ds-input"><span>Lima</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg></div>
+<span class="ds-help">Select</span>
+</div>
+</div>
 
 ## Estados
 
