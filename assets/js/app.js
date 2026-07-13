@@ -153,9 +153,15 @@
   }
 
   async function loadEncrypted() {
-    const res = await fetch("content.enc.json");
-    if (!res.ok) return false;
-    const bundle = await res.json();
+    let bundle;
+    if (window.__DS_ENC__) {
+      // Build de un solo archivo cifrado (window.__DS_ENC__ incrustado).
+      bundle = window.__DS_ENC__;
+    } else {
+      const res = await fetch("content.enc.json");
+      if (!res.ok) return false;
+      bundle = await res.json();
+    }
     const saved = sessionStorage.getItem("ds-pass");
     if (saved) {
       try {
@@ -175,6 +181,11 @@
     // usa fetch. Ver tools/build-preview.mjs.
     if (window.__DS_INLINE__) {
       applyBundle(window.__DS_INLINE__);
+      applySiteMeta();
+      return;
+    }
+    if (window.__DS_ENC__) {
+      await loadEncrypted();
       applySiteMeta();
       return;
     }
