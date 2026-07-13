@@ -1,47 +1,55 @@
 # Campos de texto
 
-Los campos de texto permiten al usuario introducir y editar información. Son la base de todos los formularios del producto.
+Los campos de texto permiten introducir y editar información. Son la base de todos los formularios. La **Global Components Library** incluye `Input / Text Field` y `Input / Select`, ambos con la misma matriz de estados y tamaños.
 
 :::info
-Embebe aquí el componente real desde Figma con `::figma <url del frame>` para mostrar todas las variantes en vivo.
+Embebe el componente real con `::figma <url del frame de Input>` para ver todas las combinaciones de estado en vivo.
 :::
-
-## Anatomía
-
-1. **Etiqueta**: siempre visible, encima del campo. Estilo `body-small`, peso 500.
-2. **Contenedor**: altura 40px, borde `color-border`, radio `radius-sm`, padding `space-3`.
-3. **Texto de ayuda** (opcional): debajo del campo, estilo `caption`, color `color-text-muted`.
-4. **Mensaje de error**: sustituye al texto de ayuda, color `color-danger`, con icono.
-5. **Icono o prefijo** (opcional): dentro del contenedor, alineado a la izquierda.
 
 ## Estados
 
+Los nombres corresponden a las variantes de la librería:
+
 | Estado | Tratamiento |
 | --- | --- |
-| Default | Borde `color-border` |
-| Focus | Borde `color-primary` + anillo de foco de 2px |
-| Error | Borde `color-danger` + mensaje con icono |
-| Deshabilitado | Fondo `color-background`, texto atenuado |
-| Solo lectura | Sin borde interactivo, texto seleccionable |
+| **Default** | Borde `Stroke/neutral/low` |
+| **Hover** | Borde `Stroke/neutral/medium` |
+| **Focus** | Borde `Stroke/brand/primary/medium` + anillo de foco 2px |
+| **Disabled** | Fondo atenuado, texto `Text/neutral/medium`, sin interacción |
+| **Error** | Borde `Stroke/status/danger/medium` + mensaje con icono |
+
+> La librería también parametriza tamaño (**SM**…), presencia de icono, texto de ayuda y estado obligatorio como propiedades del componente.
+
+## Anatomía
+
+1. **Etiqueta:** siempre visible, encima del campo. `Sizes/s` (14), peso 500.
+2. **Contenedor:** radio `border radio/small` (8px), borde `border width/small` (1px), padding `Spacing/small` (12px).
+3. **Texto de ayuda** (opcional): debajo, `Sizes/xs` (12), color `Text/neutral/medium`.
+4. **Mensaje de error:** sustituye a la ayuda, color `Text/status/danger/medium`, con icono.
+5. **Icono / prefijo** (opcional): dentro del contenedor.
+
+## Select
+
+Mismo contenedor y estados que el Text Field, pero abre una lista de opciones. Úsalo para elegir **una** opción de un conjunto conocido y acotado; para muchas opciones o búsqueda libre, usa el patrón de búsqueda.
 
 ## Validación
 
-- Valida **al salir del campo** (blur), no con cada tecla: evita gritar errores mientras la persona aún escribe.
-- El mensaje de error dice **cómo corregirlo**, no solo que está mal: *"El correo debe incluir @"* en lugar de *"Correo inválido"*.
-- Al corregir el error, el mensaje desaparece inmediatamente.
+- Valida **al salir del campo** (blur), no con cada tecla.
+- El error dice **cómo corregirlo**: *"El correo debe incluir @"*, no *"Correo inválido"*.
+- Al corregir, el mensaje desaparece de inmediato.
 
 ## Reglas de uso
 
 :::do
-Usa siempre etiqueta visible. La etiqueta nunca se sustituye por el placeholder: el placeholder desaparece al escribir y la persona pierde la referencia.
+Usa siempre etiqueta visible. El placeholder es un ejemplo del formato esperado, nunca la etiqueta.
 :::
 
 :::dont
-No uses placeholder como única etiqueta, ni marques campos opcionales y obligatorios a la vez: marca solo los opcionales con "(opcional)".
+No uses el placeholder como única etiqueta, ni marques a la vez campos obligatorios y opcionales: marca solo los opcionales con "(opcional)".
 :::
 
 ## Accesibilidad
 
 - Cada campo tiene su `label` asociado programáticamente.
-- Los mensajes de error se anuncian a lectores de pantalla (`aria-describedby` + `aria-invalid`).
-- El campo es operable por teclado y su anillo de foco es visible.
+- Los errores se anuncian a lectores de pantalla (`aria-describedby` + `aria-invalid`).
+- Operable por teclado, con anillo de foco visible.

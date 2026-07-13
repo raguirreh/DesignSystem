@@ -1,45 +1,49 @@
 # Tipografía
 
-La tipografía construye la jerarquía de la información. Una escala limitada y consistente hace que las pantallas se lean solas.
+La tipografía construye la jerarquía de la información. La escala es limitada y con nombres semánticos: cada tamaño tiene un propósito y no se crean valores intermedios.
 
-## Familia tipográfica
+## Escala de tamaños
 
-| Uso | Familia | Fallback |
+Colección **Primitive Typography** de la Core Tokens Library. Ocho tamaños, de `xs` a `4xl`:
+
+| Token | Tamaño | Uso sugerido |
 | --- | --- | --- |
-| Interfaz y texto | Inter | system-ui, sans-serif |
-| Código y datos técnicos | JetBrains Mono | ui-monospace, monospace |
+| `Sizes/xs` | 12 px | Etiquetas, captions, metadatos |
+| `Sizes/s` | 14 px | Texto secundario, ayudas |
+| `Sizes/m` | 16 px | Texto de cuerpo (base) |
+| `Sizes/l` | 24 px | Subtítulos, títulos de tarjeta |
+| `Sizes/xl` | 32 px | Título de sección |
+| `Sizes/2xl` | 48 px | Título de página |
+| `Sizes/3xl` | 64 px | Titulares destacados |
+| `Sizes/4xl` | 80 px | Momentos hero / portada |
 
-:::info
-Sustituye estas familias por las de tu marca. Mantén siempre un *fallback* de sistema para garantizar el renderizado mientras carga la fuente.
-:::
+> Los tamaños son primitivos numéricos: normalmente los consumes a través de estilos de texto de Figma que combinan tamaño + peso + interlineado.
 
-## Escala tipográfica
+## Jerarquía recomendada
 
-La escala usa una progresión limitada: cada nivel tiene un propósito claro y no se crean tamaños intermedios.
-
-| Token | Tamaño / Interlineado | Peso | Uso |
-| --- | --- | --- | --- |
-| `display` | 40px / 48px | 800 | Titulares de portada y momentos clave |
-| `heading-1` | 32px / 40px | 700 | Título principal de página |
-| `heading-2` | 24px / 32px | 700 | Secciones dentro de una página |
-| `heading-3` | 18px / 26px | 600 | Subsecciones y títulos de tarjetas |
-| `body` | 16px / 24px | 400 | Texto general |
-| `body-small` | 14px / 20px | 400 | Texto secundario, metadatos |
-| `caption` | 12px / 16px | 500 | Etiquetas, ayudas y notas |
+| Nivel | Tamaño | Peso |
+| --- | --- | --- |
+| Display | `4xl` / `3xl` (80 / 64) | 800 |
+| Título de página | `2xl` (48) | 700 |
+| Sección | `xl` (32) | 700 |
+| Subsección | `l` (24) | 600 |
+| Cuerpo | `m` (16) | 400 |
+| Secundario | `s` (14) | 400 |
+| Caption | `xs` (12) | 500 |
 
 ## Reglas de uso
 
 :::do
-Usa los estilos de texto publicados en Figma y sus tokens equivalentes en código. La jerarquía debe poder leerse quitando el color: solo con tamaño y peso.
+Usa los estilos de texto publicados en Figma y sus tokens equivalentes en código. La jerarquía debe leerse solo con tamaño y peso, incluso sin color.
 :::
 
 :::dont
-No apliques tamaños fuera de la escala ni combines más de dos pesos en un mismo bloque de contenido.
+No apliques tamaños fuera de la escala (por ejemplo 18 px o 20 px) ni combines más de dos pesos en un mismo bloque de contenido.
 :::
 
-## Buenas prácticas de legibilidad
+## Legibilidad
 
-- Longitud de línea ideal: **45–75 caracteres** por línea en texto corrido.
-- Evita texto en mayúsculas sostenidas para más de 2–3 palabras.
-- Alineación a la izquierda por defecto; el texto centrado solo en titulares cortos.
-- El interlineado del cuerpo de texto nunca baja de **1.4**.
+- Longitud de línea ideal: **45–75 caracteres** en texto corrido.
+- Interlineado del cuerpo: no baja de **1.4**.
+- Alineación a la izquierda por defecto; centrado solo en titulares cortos.
+- Evita mayúsculas sostenidas en más de 2–3 palabras.

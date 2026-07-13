@@ -1,10 +1,10 @@
 {
   "site": {
-    "title": "Design System",
-    "tagline": "Documentación del Design System",
-    "description": "Todo lo que necesitas para diseñar y construir productos consistentes: fundamentos, componentes, principios y recursos.",
+    "title": "Pacífico · Design System",
+    "tagline": "Design System · Pacífico Salud",
+    "description": "La fuente única de verdad para diseñar y construir los productos digitales de Pacífico: tokens, fundamentos, componentes y principios, con soporte multimarca (Sanna · Tsanna · Pacífico).",
     "figmaUrl": "",
-    "quickSearches": ["Botones", "Paleta de color", "Tipografía", "Principios de diseño", "Espaciado", "Accesibilidad"]
+    "quickSearches": ["Botones", "Colores de marca", "Tokens", "Tipografía", "Inputs", "Espaciado", "Multimarca"]
   },
   "sections": [
     {
@@ -16,20 +16,20 @@
         {
           "title": "Introducción",
           "slug": "introduccion",
-          "description": "Qué es el design system y por qué existe.",
-          "keywords": ["inicio", "overview", "qué es", "propósito"]
+          "description": "Qué es el design system de Pacífico y cómo está estructurado.",
+          "keywords": ["inicio", "overview", "qué es", "propósito", "pacífico", "sanna", "tsanna", "multimarca"]
         },
         {
           "title": "Para diseñadores",
           "slug": "para-disenadores",
-          "description": "Cómo usar la librería de Figma en tus diseños.",
-          "keywords": ["figma", "librería", "assets", "diseño", "designers"]
+          "description": "Cómo usar las librerías de Figma en tus diseños.",
+          "keywords": ["figma", "librería", "assets", "diseño", "designers", "core tokens", "global components"]
         },
         {
           "title": "Para desarrolladores",
           "slug": "para-desarrolladores",
-          "description": "Cómo consumir tokens y componentes desde código.",
-          "keywords": ["código", "tokens", "css", "developers", "implementación"]
+          "description": "Cómo consumir los tokens y componentes desde código.",
+          "keywords": ["código", "tokens", "css", "variables", "developers", "implementación"]
         }
       ]
     },
@@ -37,7 +37,7 @@
       "title": "Fundamentos",
       "slug": "fundamentos",
       "icon": "🎨",
-      "description": "Principios de diseño, color, tipografía, espaciado e iconografía.",
+      "description": "Arquitectura de tokens, principios, color, tipografía, espaciado e iconografía.",
       "pages": [
         {
           "title": "Principios de diseño",
@@ -46,28 +46,34 @@
           "keywords": ["principios", "valores", "filosofía", "criterios"]
         },
         {
+          "title": "Arquitectura de tokens",
+          "slug": "arquitectura-tokens",
+          "description": "Cómo se relacionan primitivos, tokens semánticos y modos de marca.",
+          "keywords": ["tokens", "arquitectura", "primitivos", "semántico", "alias", "modos", "marca", "multimarca", "sanna", "tsanna", "pacífico"]
+        },
+        {
           "title": "Color",
           "slug": "color",
-          "description": "Paleta de color, tokens semánticos y uso correcto.",
-          "keywords": ["color", "paleta", "tokens", "contraste", "accesibilidad", "primario", "secundario"]
+          "description": "Paleta primitiva y tokens semánticos de color (Fill, Text, Icons, Stroke, Surface).",
+          "keywords": ["color", "paleta", "tokens", "fill", "text", "surface", "stroke", "contraste", "accesibilidad", "primario", "secundario", "estados"]
         },
         {
           "title": "Tipografía",
           "slug": "tipografia",
-          "description": "Familias, escala tipográfica y jerarquía de texto.",
-          "keywords": ["tipografía", "fuentes", "texto", "escala", "headings", "jerarquía"]
+          "description": "Escala tipográfica real (xs → 4xl) y jerarquía de texto.",
+          "keywords": ["tipografía", "fuentes", "texto", "escala", "tamaños", "headings", "jerarquía"]
         },
         {
-          "title": "Espaciado y retícula",
+          "title": "Espaciado y medidas",
           "slug": "espaciado",
-          "description": "Sistema de espaciado, retícula y layout.",
-          "keywords": ["espaciado", "spacing", "grid", "retícula", "layout", "márgenes"]
+          "description": "Escala base, espaciado, radios de borde y grosores.",
+          "keywords": ["espaciado", "spacing", "scale", "escala", "radios", "border radius", "grosor", "medidas", "layout"]
         },
         {
           "title": "Iconografía",
           "slug": "iconografia",
-          "description": "Set de iconos, tamaños y guías de uso.",
-          "keywords": ["iconos", "iconografía", "svg", "pictogramas"]
+          "description": "Set de iconos (Material Symbols), tamaños y guías de uso.",
+          "keywords": ["iconos", "iconografía", "material symbols", "svg", "pictogramas"]
         }
       ]
     },
@@ -75,25 +81,37 @@
       "title": "Componentes",
       "slug": "componentes",
       "icon": "🧩",
-      "description": "Documentación de cada componente: anatomía, variantes y buenas prácticas.",
+      "description": "Documentación de los componentes reales: anatomía, variantes y buenas prácticas.",
       "pages": [
         {
           "title": "Botones",
           "slug": "botones",
-          "description": "Variantes, estados y uso correcto de los botones.",
-          "keywords": ["botón", "button", "cta", "acción", "primario", "secundario"]
+          "description": "Button e Icon Button: variantes, jerarquía, estados y uso.",
+          "keywords": ["botón", "button", "icon button", "cta", "acción", "primary", "secondary", "neutral", "ghost", "error", "highlight"]
         },
         {
           "title": "Campos de texto",
           "slug": "campos-de-texto",
-          "description": "Inputs, áreas de texto, validación y estados.",
-          "keywords": ["input", "campo", "formulario", "texto", "validación", "error"]
+          "description": "Input Text Field y Select: estados, tamaños y validación.",
+          "keywords": ["input", "campo", "text field", "select", "formulario", "texto", "validación", "error", "focus", "disabled"]
         },
         {
-          "title": "Tarjetas",
-          "slug": "tarjetas",
-          "description": "Contenedores de contenido agrupado y accionable.",
-          "keywords": ["tarjeta", "card", "contenedor", "panel"]
+          "title": "Controles de selección",
+          "slug": "seleccion",
+          "description": "Radio Button, Checkbox y Toggle: cuándo usar cada uno.",
+          "keywords": ["radio", "checkbox", "toggle", "switch", "selección", "opción", "formulario", "marcar"]
+        },
+        {
+          "title": "Tags, Chips y Badges",
+          "slug": "tags",
+          "description": "Etiquetas de estado, filtros y contadores.",
+          "keywords": ["tag", "chip", "badge", "etiqueta", "estado", "filtro", "contador", "promotional"]
+        },
+        {
+          "title": "Retroalimentación",
+          "slug": "retroalimentacion",
+          "description": "Toast y Section Message: cómo comunicar estado al usuario.",
+          "keywords": ["toast", "section message", "alerta", "notificación", "feedback", "mensaje", "aviso", "error", "éxito"]
         }
       ]
     },
@@ -101,13 +119,13 @@
       "title": "Recursos",
       "slug": "recursos",
       "icon": "📦",
-      "description": "Librería de Figma, cómo contribuir y registro de cambios.",
+      "description": "Librerías de Figma, cómo contribuir y registro de cambios.",
       "pages": [
         {
-          "title": "Librería de Figma",
+          "title": "Librerías de Figma",
           "slug": "figma",
-          "description": "Cómo conectar la librería y embeber diseños en esta documentación.",
-          "keywords": ["figma", "librería", "embed", "conectar", "sincronizar"]
+          "description": "Core Tokens y Global Components: cómo conectarlas y embeber diseños.",
+          "keywords": ["figma", "librería", "core tokens", "global components", "embed", "conectar", "sincronizar"]
         },
         {
           "title": "Cómo contribuir",
