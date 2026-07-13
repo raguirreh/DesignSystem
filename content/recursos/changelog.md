@@ -1,28 +1,32 @@
 # Changelog
 
-Historial de cambios del design system. Cada publicación de la librería de Figma y cada cambio relevante de la documentación se anota aquí, del más reciente al más antiguo.
+Historial de cambios del design system. Cada publicación de las librerías de Figma y cada cambio relevante de la documentación se anota aquí, del más reciente al más antiguo.
 
 ## Julio 2026
 
+### 13 de julio — Documentación alimentada con datos reales
+
+- 🔄 La documentación ahora refleja las librerías reales **Core Tokens Library** y **Global Components Library**.
+- ✨ Nueva página **Arquitectura de tokens**: primitivos → semánticos → modos de marca (Sanna · Tsanna · Pacífico).
+- ✨ **Color** con la paleta primitiva real (50 colores, 10 familias) y los tokens semánticos (Fill, Text, Icons, Stroke, Surface).
+- ✨ **Tipografía**, **Espaciado y medidas** con las escalas reales (tamaños xs–4xl, Scale 0–160, radios y grosores).
+- ✨ Componentes reales: **Botones** (Button e Icon Button), **Campos de texto** (Text Field y Select), **Controles de selección** (Radio, Checkbox, Toggle), **Tags/Chips/Badges** y **Retroalimentación** (Toast, Section Message).
+- 🎨 El tema del sitio adopta el color de marca **Pacífico**.
+
 ### 13 de julio — Lanzamiento de la documentación
 
-- 🎉 Primera versión del sitio de documentación del design system.
-- Portada con buscador global: *¿Qué necesitas saber hoy?*
-- Secciones iniciales: **Empezando**, **Fundamentos**, **Componentes** y **Recursos**.
-- Soporte de embeds en vivo de Figma en cualquier página (`::figma <url>`).
-- Documentación inicial de principios de diseño, color, tipografía, espaciado, iconografía, botones, campos de texto y tarjetas.
+- 🎉 Primera versión del sitio: portada con buscador (*¿Qué necesitas saber hoy?*), navegación por secciones y soporte de embeds de Figma.
+- 🔒 Protección por contraseña (contenido cifrado) para publicación privada.
 
 ---
 
 ## Cómo anotar cambios
-
-Usa este formato para cada entrada:
 
 ```markdown
 ### <fecha> — <título del cambio>
 
 - ✨ Nuevo: <componente o página añadida>
 - 🔄 Cambiado: <qué cambió y por qué>
-- ⚠️ Deprecado: <qué deja de usarse y cuál es el reemplazo>
+- ⚠️ Deprecado: <qué deja de usarse y su reemplazo>
 - 🗑️ Eliminado: <qué se retiró>
 ```

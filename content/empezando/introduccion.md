@@ -1,33 +1,42 @@
 # Introducción
 
-Bienvenido a la documentación del **Design System**. Este sitio es la fuente única de verdad para diseñar y construir productos consistentes: aquí viven los fundamentos, los principios de diseño, la documentación de componentes y los recursos del equipo.
+Bienvenido a la documentación del **Design System de Pacífico**. Este sitio es la fuente única de verdad para diseñar y construir productos digitales consistentes: aquí viven la arquitectura de tokens, los principios de diseño, la documentación de componentes y los recursos del equipo.
 
-## ¿Qué es un design system?
+## Un sistema, varias marcas
 
-Un design system es mucho más que una librería de componentes. Es el conjunto de decisiones de diseño, patrones reutilizables y guías de uso que permiten a cualquier persona del equipo crear experiencias coherentes sin empezar de cero.
+El design system está construido sobre **tokens** y soporta varias marcas a la vez mediante *modos*. La misma estructura de tokens semánticos cambia de piel según la marca:
 
-Nuestro design system se compone de:
-
-| Capa | Qué contiene | Dónde vive |
+| Marca | Color primario | Color secundario |
 | --- | --- | --- |
-| **Fundamentos** | Color, tipografía, espaciado, iconografía | [Fundamentos](#/fundamentos/color) |
-| **Principios** | Criterios que guían las decisiones de diseño | [Principios de diseño](#/fundamentos/principios) |
-| **Componentes** | Piezas reutilizables con anatomía, variantes y reglas de uso | [Componentes](#/componentes/botones) |
-| **Librería de Figma** | La fuente visual de todos los componentes | [Librería de Figma](#/recursos/figma) |
+| **Pacífico** | `#0099CC` | `#E02667` |
+| **Sanna** | `#01A355` | `#5D59EF` |
+| **Tsanna** | `#5D59EF` | `#01A355` |
 
-## ¿Por qué existe?
+Esto significa que un botón "primario" es siempre el mismo componente: al cambiar el modo de marca, adopta automáticamente los colores correctos sin rediseñar nada.
 
-- **Consistencia**: los usuarios perciben un producto coherente sin importar quién diseñó cada pantalla.
-- **Velocidad**: diseñar y desarrollar con piezas ya resueltas es más rápido que reinventarlas.
-- **Calidad**: la accesibilidad, los estados y los casos límite ya están pensados una sola vez, bien.
-- **Lenguaje común**: diseño y desarrollo hablan de lo mismo con los mismos nombres.
+## Cómo está organizado
 
-## Cómo navegar esta documentación
+El sistema se reparte en dos librerías de Figma y esta documentación:
 
-- Usa el **buscador** (⌘K o Ctrl+K) desde cualquier página; en la portada te pregunta directamente *¿qué necesitas saber hoy?*.
-- Cada sección tiene un menú lateral con todas sus páginas.
-- Las páginas de componentes siguen siempre la misma estructura: **anatomía → variantes → comportamiento → buenas prácticas**.
+| Capa | Qué contiene | Dónde |
+| --- | --- | --- |
+| **Core Tokens Library** | Primitivos y tokens semánticos (color, tipografía, escala, medidas) | [Arquitectura de tokens](#/fundamentos/arquitectura-tokens) |
+| **Global Components Library** | Componentes reutilizables (Button, Input, Radio, Toast…) | [Componentes](#/componentes/botones) |
+| **Documentación** (este sitio) | Guías de uso, principios y buenas prácticas | Aquí mismo |
+
+## El sistema en números
+
+- **50** colores primitivos organizados en 10 familias (Blue, Pink, Green, Amber, Jade, Ruby, Sapphire, Purple, Topaz, Black).
+- **175** tokens semánticos de color (Fill, Text, Icons, Stroke, Surface) × 3 modos de marca.
+- **8** tamaños tipográficos (xs → 4xl) y una escala de espaciado de **15** pasos.
+- Más de **100** familias de componentes documentadas.
+
+## Cómo navegar
+
+- Usa el **buscador** (⌘K o Ctrl+K); en la portada te pregunta directamente *¿qué necesitas saber hoy?*.
+- Empieza por [Arquitectura de tokens](#/fundamentos/arquitectura-tokens) para entender cómo encaja todo.
+- Cada página de componente sigue la misma estructura: **anatomía → variantes → estados → buenas prácticas**.
 
 :::info
-Esta documentación es un proyecto vivo. Si detectas algo desactualizado o que falta, revisa [cómo contribuir](#/recursos/contribuir).
+Esta documentación se alimenta directamente de las librerías de Figma **Core Tokens Library** y **Global Components Library**. Los valores que ves (colores, tamaños, nombres de token) son los reales del sistema.
 :::

@@ -1,67 +1,83 @@
 # Para desarrolladores
 
-Cómo consumir el design system desde código y mantener la fidelidad con los diseños de Figma.
+Cómo consumir el design system de Pacífico desde código manteniendo la fidelidad con Figma y el soporte multimarca.
 
 ## Tokens de diseño
 
-Los tokens son la representación en código de las decisiones de diseño (colores, tipografía, espaciado). Son la única fuente válida de estos valores: si un valor no existe como token, no debería estar en el código.
+Los tokens son la representación en código de las decisiones de diseño. Reflejan las colecciones de la **Core Tokens Library**. Este es un mapeo de ejemplo a variables CSS:
 
 ```css
 :root {
-  /* Color */
-  --color-primary: #5B5BD6;
-  --color-primary-hover: #4646C6;
-  --color-text: #1A1A2E;
-  --color-text-muted: #61616E;
-  --color-surface: #FFFFFF;
-  --color-border: #E4E4EA;
+  /* Primitivos de color (Primitives Colors) */
+  --blue-medium: #0099CC;
+  --blue-high: #007499;
+  --black-xhigh: #121314;
+  --black-medium: #6A6C74;
 
-  /* Espaciado (base 4px) */
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 12px;
-  --space-4: 16px;
-  --space-6: 24px;
-  --space-8: 32px;
+  /* Escala base (Primitives Scale) */
+  --scale-100: 4px;
+  --scale-200: 8px;
+  --scale-300: 12px;
+  --scale-400: 16px;
+  --scale-500: 24px;
 
-  /* Tipografía */
-  --font-family: "Inter", system-ui, sans-serif;
-  --text-sm: 14px;
-  --text-base: 16px;
-  --text-lg: 20px;
-  --text-xl: 24px;
+  /* Tipografía (Primitive Typography) */
+  --size-xs: 12px;
+  --size-s: 14px;
+  --size-m: 16px;
+  --size-l: 24px;
 
-  /* Bordes y sombras */
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --shadow-sm: 0 1px 3px rgba(20, 20, 40, 0.08);
+  /* Medidas (Core Sizes) */
+  --radius-small: 8px;
+  --radius-medium: 16px;
+  --border-small: 1px;
+}
+
+/* Tokens semánticos por marca (modo) */
+:root[data-brand="pacifico"] {
+  --fill-brand-primary-medium: #0099CC;
+  --fill-brand-secondary-medium: #E02667;
+}
+:root[data-brand="sanna"] {
+  --fill-brand-primary-medium: #01A355;
+  --fill-brand-secondary-medium: #5D59EF;
+}
+:root[data-brand="tsanna"] {
+  --fill-brand-primary-medium: #5D59EF;
+  --fill-brand-secondary-medium: #01A355;
+}
+
+/* Neutrales y estados: iguales en las tres marcas */
+:root {
+  --text-neutral-xhigh: #121314;
+  --text-neutral-medium: #6A6C74;
+  --fill-status-danger-medium: #DC3B31;
+  --fill-status-success-medium: #1FA78D;
 }
 ```
 
 :::info
-Esta tabla de tokens es un punto de partida. Sustitúyela por los valores reales exportados desde Figma (por ejemplo, con *Figma Variables* o herramientas como Tokens Studio / Style Dictionary).
+Los valores anteriores están extraídos de la librería real. Lo ideal es **exportarlos automáticamente** desde Figma (Figma Variables + Tokens Studio o Style Dictionary) para no mantenerlos a mano.
 :::
+
+## Multimarca
+
+El sistema tiene tres modos: **Pacífico, Sanna, Tsanna**. Solo cambian los tokens `brand/*`; `neutral/*` y `status/*` son compartidos. Implementa la marca como un atributo raíz (`data-brand`) y deja que los tokens semánticos hagan el resto: los componentes no cambian.
 
 ## Reglas de implementación
 
 :::do
-Usa siempre tokens (`var(--color-primary)`) en lugar de valores literales. Cuando el diseño cambie, tu código se actualizará solo.
+Consume siempre el token semántico (`var(--fill-brand-primary-medium)`), no el primitivo ni el hex. Así el cambio de marca y los ajustes de paleta se propagan solos.
 :::
 
 :::dont
-No copies valores hexadecimales directamente desde Figma al CSS. Ese valor quedará huérfano en la próxima actualización de la paleta.
+No copies valores hexadecimales desde Figma al CSS. Ese valor quedará huérfano en la próxima actualización de la paleta o de la marca.
 :::
 
-## Flujo de trabajo con diseño
-
-1. **Revisa la documentación del componente** antes de implementarlo: define estados y comportamiento que quizá no se ven en el mockup.
-2. **Inspecciona en Figma** con el modo Dev para obtener medidas y tokens exactos.
-3. **Valida accesibilidad**: navegación por teclado, foco visible, textos alternativos y contraste.
-4. Si detectas una inconsistencia entre Figma y esta documentación, repórtala siguiendo el proceso de [contribución](#/recursos/contribuir).
-
-## Definición de "hecho" para un componente
+## Definición de "hecho"
 
 - [ ] Coincide visualmente con Figma en todos los estados.
-- [ ] Usa solo tokens del sistema (sin valores mágicos).
-- [ ] Es navegable por teclado y anuncia su estado a lectores de pantalla.
-- [ ] Responde correctamente en móvil y escritorio.
+- [ ] Usa solo tokens semánticos (sin primitivos ni valores mágicos).
+- [ ] Funciona en las tres marcas sin cambios de código.
+- [ ] Navegable por teclado y anuncia su estado a lectores de pantalla.
+- [ ] Responde en móvil y escritorio.

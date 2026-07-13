@@ -1,40 +1,71 @@
-# Espaciado y retícula
+# Espaciado y medidas
 
-Un sistema de espaciado predecible crea ritmo visual y elimina decisiones arbitrarias. Todo el espaciado del producto se construye sobre una **base de 4px**.
+Un sistema de medidas predecible crea ritmo visual y elimina decisiones arbitrarias. Todo se construye sobre una **escala base** (colección *Primitives Scale*) que luego se referencia con nombres semánticos (colección *Core Sizes*).
 
-## Escala de espaciado
+## Escala base — Primitives Scale
 
-| Token | Valor | Uso típico |
+El valor crudo, en píxeles. El espaciado, los radios y los grosores apuntan a estos pasos.
+
+| Token | px | Token | px |
+| --- | --- | --- | --- |
+| `Scale/none` | 0 | `Scale/500` | 24 |
+| `Scale/25` | 1 | `Scale/600` | 32 |
+| `Scale/50` | 2 | `Scale/700` | 48 |
+| `Scale/100` | 4 | `Scale/800` | 64 |
+| `Scale/200` | 8 | `Scale/900` | 80 |
+| `Scale/300` | 12 | `Scale/1000` | 96 |
+| `Scale/400` | 16 | `Scale/1100` | 160 |
+| | | `Scale/round` | 500 |
+
+## Espaciado — Core Sizes
+
+Nombres semánticos para separación interna y entre elementos. Estos son los que usas al diseñar.
+
+| Token | Referencia | px |
 | --- | --- | --- |
-| `space-1` | 4px | Separación entre icono y texto |
-| `space-2` | 8px | Espaciado interno compacto, gaps de chips |
-| `space-3` | 12px | Padding de inputs y botones |
-| `space-4` | 16px | Padding estándar de contenedores |
-| `space-6` | 24px | Separación entre grupos relacionados |
-| `space-8` | 32px | Separación entre bloques de contenido |
-| `space-12` | 48px | Separación entre secciones de página |
-| `space-16` | 64px | Márgenes de secciones principales |
+| `Spacing/none` | Scale/none | 0 |
+| `Spacing/2xsmall` | Scale/100 | 4 |
+| `Spacing/xsmall` | Scale/200 | 8 |
+| `Spacing/small` | Scale/300 | 12 |
+| `Spacing/medium` | Scale/400 | 16 |
+| `Spacing/large` | Scale/500 | 24 |
+| `Spacing/xlarge` | Scale/600 | 32 |
+| `Spacing/2xlarge` | Scale/700 | 48 |
+| `Spacing/3xlarge` | Scale/800 | 64 |
+| `Spacing/4xlarge` | Scale/900 | 80 |
+| `Spacing/5xlarge` | Scale/1000 | 96 |
+| `Spacing/6xlarge` | Scale/1100 | 160 |
 
-:::do
-Elige siempre el valor de la escala más cercano a lo que necesitas. Si dudas entre dos, usa el mayor: el aire favorece la lectura.
-:::
+## Radios de borde
 
-:::dont
-No uses valores fuera de la escala (10px, 18px, 25px…). Si un caso real lo exige repetidamente, propón añadir el token.
-:::
+| Token | Referencia | px |
+| --- | --- | --- |
+| `border radio/none` | Scale/none | 0 |
+| `border radio/small` | Scale/200 | 8 |
+| `border radio/medium` | Scale/400 | 16 |
+| `border radio/large` | Scale/500 | 24 |
+| `border radio/circular` | Scale/round | 500 (píldora / círculo) |
 
-## Retícula
+## Grosores de borde
 
-- **Escritorio**: 12 columnas, gutter de 24px, ancho máximo de contenido 1200px.
-- **Tablet**: 8 columnas, gutter de 16px.
-- **Móvil**: 4 columnas, gutter de 16px, márgenes laterales de 16px.
+| Token | Referencia | px |
+| --- | --- | --- |
+| `border width/none` | Scale/none | 0 |
+| `border width/small` | Scale/25 | 1 |
+| `border width/medium` | Scale/50 | 2 |
 
 ## Principio de proximidad
 
-El espaciado comunica relación: elementos relacionados van juntos, elementos independientes se separan.
+El espaciado comunica relación: lo relacionado va junto, lo independiente se separa.
 
-- Dentro de un grupo: `space-2` a `space-3`.
-- Entre grupos relacionados: `space-4` a `space-6`.
-- Entre bloques independientes: `space-8` o más.
+- Dentro de un grupo: `Spacing/xsmall` a `Spacing/small` (8–12).
+- Entre grupos relacionados: `Spacing/medium` a `Spacing/large` (16–24).
+- Entre bloques independientes: `Spacing/xlarge` o más (32+).
 
-La regla práctica: **el espacio exterior de un elemento siempre es mayor que su espacio interior**.
+:::do
+Elige siempre el token de la escala más cercano a lo que necesitas. Si dudas entre dos, usa el mayor: el aire favorece la lectura.
+:::
+
+:::dont
+No uses valores fuera de la escala (10, 18, 25…). Si un caso real lo exige de forma recurrente, propón añadir el token.
+:::
