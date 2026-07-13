@@ -2,6 +2,31 @@
 
 Permiten al usuario elegir entre opciones. La **Global Components Library** incluye tres: `Radio Button`, `Checkbox` y `Toggle`. Elegir el correcto es la mitad del trabajo.
 
+## Previsualización
+
+<div class="ds-preview">
+<div class="ds-stack">
+<p class="ds-caption">Radio Button</p>
+<span class="ds-opt"><span class="ds-radio is-on"></span> Presencial</span>
+<span class="ds-opt"><span class="ds-radio"></span> Teleconsulta</span>
+<span class="ds-opt is-disabled"><span class="ds-radio"></span> A domicilio (no disponible)</span>
+</div>
+</div>
+
+<div class="ds-preview">
+<div class="ds-stack">
+<p class="ds-caption">Checkbox</p>
+<span class="ds-opt"><span class="ds-check is-on"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6"/></svg></span> Acepto los términos</span>
+<span class="ds-opt"><span class="ds-check"></span> Recibir recordatorios por correo</span>
+</div>
+</div>
+
+<div class="ds-preview">
+<p class="ds-caption">Toggle</p>
+<span class="ds-opt"><span class="ds-toggle is-on"></span> Notificaciones activadas</span>
+<span class="ds-opt"><span class="ds-toggle"></span> Modo ahorro</span>
+</div>
+
 ## Cuándo usar cada uno
 
 | Control | Úsalo para… | Regla mental |

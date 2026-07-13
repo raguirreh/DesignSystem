@@ -2,6 +2,22 @@
 
 Comunicar al usuario el resultado de sus acciones y el estado del sistema. La **Global Components Library** incluye `Toast` y `Section Message`, cada uno para un momento distinto.
 
+## Previsualización
+
+<div class="ds-preview ds-col">
+<p class="ds-caption">Toast</p>
+<div class="ds-toast ds-toast--success"><span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg></span> Cita agendada correctamente <span class="act">Deshacer</span></div>
+<div class="ds-toast ds-toast--danger"><span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16h.01"/></svg></span> No pudimos guardar los cambios</div>
+</div>
+
+<div class="ds-preview ds-col">
+<p class="ds-caption">Section Message</p>
+<div class="ds-msg ds-msg--info"><span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg></span><div><strong>Información</strong>Tu sesión se cerrará automáticamente tras 15 minutos de inactividad.</div></div>
+<div class="ds-msg ds-msg--success"><span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg></span><div><strong>Todo en orden</strong>Tus datos se guardaron correctamente.</div></div>
+<div class="ds-msg ds-msg--warning"><span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 20h20L12 3Z"/><path d="M12 9v5M12 17h.01"/></svg></span><div><strong>Atención</strong>Tu plan vence en 3 días. Renuévalo para no perder cobertura.</div></div>
+<div class="ds-msg ds-msg--danger"><span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16h.01"/></svg></span><div><strong>Error</strong>No se pudo procesar el pago. Revisa los datos de tu tarjeta.</div></div>
+</div>
+
 ## Toast vs. Section Message
 
 | Componente | Cuándo | Duración |

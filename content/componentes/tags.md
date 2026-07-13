@@ -2,6 +2,31 @@
 
 Piezas pequeñas que etiquetan, filtran o cuentan. Se parecen, pero cumplen funciones distintas. La **Global Components Library** incluye `Tag`, `Chip`, `Badge` y `Promotional Tag`.
 
+## Previsualización
+
+<div class="ds-preview">
+<p class="ds-caption">Tags de estado</p>
+<span class="ds-tag">Neutral</span>
+<span class="ds-tag ds-tag--success">Activo</span>
+<span class="ds-tag ds-tag--warning">Pendiente</span>
+<span class="ds-tag ds-tag--danger">Vencido</span>
+<span class="ds-tag ds-tag--info">Informativo</span>
+<span class="ds-tag ds-tag--brand">Nuevo</span>
+</div>
+
+<div class="ds-preview">
+<p class="ds-caption">Chips (filtros)</p>
+<span class="ds-chip is-on">Cardiología <span class="x">×</span></span>
+<span class="ds-chip">Pediatría</span>
+<span class="ds-chip">Dermatología</span>
+</div>
+
+<div class="ds-preview">
+<p class="ds-caption">Badges (contadores)</p>
+<span class="ds-badge-wrap"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg><span class="ds-badge">3</span></span>
+<span class="ds-badge-wrap"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v12H5.2L4 17.3Z"/></svg><span class="ds-badge">99+</span></span>
+</div>
+
 ## Cuál es cuál
 
 | Componente | Función | ¿Interactivo? |

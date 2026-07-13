@@ -112,6 +112,18 @@
           "slug": "retroalimentacion",
           "description": "Toast y Section Message: cómo comunicar estado al usuario.",
           "keywords": ["toast", "section message", "alerta", "notificación", "feedback", "mensaje", "aviso", "error", "éxito"]
+        },
+        {
+          "title": "Avatares",
+          "slug": "avatar",
+          "description": "Avatar con iniciales, imagen, tamaños e indicador de estado.",
+          "keywords": ["avatar", "usuario", "perfil", "iniciales", "foto", "estado", "online"]
+        },
+        {
+          "title": "Navegación",
+          "slug": "navegacion",
+          "description": "Breadcrumb, Tabs y Pagination para moverse por el producto.",
+          "keywords": ["navegación", "breadcrumb", "migas", "tabs", "pestañas", "pagination", "paginación", "navbar"]
         }
       ]
     },
