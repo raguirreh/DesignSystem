@@ -23,22 +23,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # El sitio publicado no contiene el contenido en claro: se cifra con
-      # la contraseña del secret SITE_PASSWORD y el navegador lo descifra
-      # tras introducirla. Sin el secret, el despliegue se detiene para no
-      # publicar la documentación en abierto por accidente.
-      - name: Construir sitio con contenido cifrado
-        env:
-          SITE_PASSWORD: ${{ secrets.SITE_PASSWORD }}
+      # Sitio público: se publican index.html, assets y content tal cual.
+      - name: Preparar sitio
         run: |
-          if [ -z "$SITE_PASSWORD" ]; then
-            echo "::error::Falta el secret SITE_PASSWORD. Créalo en Settings → Secrets and variables → Actions con la contraseña de acceso al sitio."
-            exit 1
-          fi
           mkdir -p _site
           cp index.html .nojekyll _site/
           cp -r assets _site/assets
-          node tools/encrypt-content.mjs _site
+          cp -r content _site/content
 
       - uses: actions/configure-pages@v5
         with:
