@@ -1,0 +1,127 @@
+{
+  "site": {
+    "title": "Design System",
+    "tagline": "Documentación del Design System",
+    "description": "Todo lo que necesitas para diseñar y construir productos consistentes: fundamentos, componentes, principios y recursos.",
+    "figmaUrl": "",
+    "quickSearches": ["Botones", "Paleta de color", "Tipografía", "Principios de diseño", "Espaciado", "Accesibilidad"]
+  },
+  "sections": [
+    {
+      "title": "Empezando",
+      "slug": "empezando",
+      "icon": "🚀",
+      "description": "Qué es el design system, cómo está organizado y cómo empezar a usarlo.",
+      "pages": [
+        {
+          "title": "Introducción",
+          "slug": "introduccion",
+          "description": "Qué es el design system y por qué existe.",
+          "keywords": ["inicio", "overview", "qué es", "propósito"]
+        },
+        {
+          "title": "Para diseñadores",
+          "slug": "para-disenadores",
+          "description": "Cómo usar la librería de Figma en tus diseños.",
+          "keywords": ["figma", "librería", "assets", "diseño", "designers"]
+        },
+        {
+          "title": "Para desarrolladores",
+          "slug": "para-desarrolladores",
+          "description": "Cómo consumir tokens y componentes desde código.",
+          "keywords": ["código", "tokens", "css", "developers", "implementación"]
+        }
+      ]
+    },
+    {
+      "title": "Fundamentos",
+      "slug": "fundamentos",
+      "icon": "🎨",
+      "description": "Principios de diseño, color, tipografía, espaciado e iconografía.",
+      "pages": [
+        {
+          "title": "Principios de diseño",
+          "slug": "principios",
+          "description": "Los principios que guían cada decisión de diseño.",
+          "keywords": ["principios", "valores", "filosofía", "criterios"]
+        },
+        {
+          "title": "Color",
+          "slug": "color",
+          "description": "Paleta de color, tokens semánticos y uso correcto.",
+          "keywords": ["color", "paleta", "tokens", "contraste", "accesibilidad", "primario", "secundario"]
+        },
+        {
+          "title": "Tipografía",
+          "slug": "tipografia",
+          "description": "Familias, escala tipográfica y jerarquía de texto.",
+          "keywords": ["tipografía", "fuentes", "texto", "escala", "headings", "jerarquía"]
+        },
+        {
+          "title": "Espaciado y retícula",
+          "slug": "espaciado",
+          "description": "Sistema de espaciado, retícula y layout.",
+          "keywords": ["espaciado", "spacing", "grid", "retícula", "layout", "márgenes"]
+        },
+        {
+          "title": "Iconografía",
+          "slug": "iconografia",
+          "description": "Set de iconos, tamaños y guías de uso.",
+          "keywords": ["iconos", "iconografía", "svg", "pictogramas"]
+        }
+      ]
+    },
+    {
+      "title": "Componentes",
+      "slug": "componentes",
+      "icon": "🧩",
+      "description": "Documentación de cada componente: anatomía, variantes y buenas prácticas.",
+      "pages": [
+        {
+          "title": "Botones",
+          "slug": "botones",
+          "description": "Variantes, estados y uso correcto de los botones.",
+          "keywords": ["botón", "button", "cta", "acción", "primario", "secundario"]
+        },
+        {
+          "title": "Campos de texto",
+          "slug": "campos-de-texto",
+          "description": "Inputs, áreas de texto, validación y estados.",
+          "keywords": ["input", "campo", "formulario", "texto", "validación", "error"]
+        },
+        {
+          "title": "Tarjetas",
+          "slug": "tarjetas",
+          "description": "Contenedores de contenido agrupado y accionable.",
+          "keywords": ["tarjeta", "card", "contenedor", "panel"]
+        }
+      ]
+    },
+    {
+      "title": "Recursos",
+      "slug": "recursos",
+      "icon": "📦",
+      "description": "Librería de Figma, cómo contribuir y registro de cambios.",
+      "pages": [
+        {
+          "title": "Librería de Figma",
+          "slug": "figma",
+          "description": "Cómo conectar la librería y embeber diseños en esta documentación.",
+          "keywords": ["figma", "librería", "embed", "conectar", "sincronizar"]
+        },
+        {
+          "title": "Cómo contribuir",
+          "slug": "contribuir",
+          "description": "Proceso para proponer cambios y nuevos componentes.",
+          "keywords": ["contribuir", "proceso", "propuesta", "gobernanza"]
+        },
+        {
+          "title": "Changelog",
+          "slug": "changelog",
+          "description": "Historial de cambios del design system.",
+          "keywords": ["changelog", "versiones", "novedades", "historial"]
+        }
+      ]
+    }
+  ]
+}

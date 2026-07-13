@@ -1,0 +1,52 @@
+name: Desplegar a GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      # El sitio publicado no contiene el contenido en claro: se cifra con
+      # la contraseña del secret SITE_PASSWORD y el navegador lo descifra
+      # tras introducirla. Sin el secret, el despliegue se detiene para no
+      # publicar la documentación en abierto por accidente.
+      - name: Construir sitio con contenido cifrado
+        env:
+          SITE_PASSWORD: ${{ secrets.SITE_PASSWORD }}
+        run: |
+          if [ -z "$SITE_PASSWORD" ]; then
+            echo "::error::Falta el secret SITE_PASSWORD. Créalo en Settings → Secrets and variables → Actions con la contraseña de acceso al sitio."
+            exit 1
+          fi
+          mkdir -p _site
+          cp index.html .nojekyll _site/
+          cp -r assets _site/assets
+          node tools/encrypt-content.mjs _site
+
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
