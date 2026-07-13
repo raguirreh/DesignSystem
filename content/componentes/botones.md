@@ -3,8 +3,43 @@
 Los botones ejecutan acciones. Su jerarquía visual comunica la importancia relativa de cada acción en la pantalla. La **Global Components Library** incluye dos familias: `Button` (con etiqueta) e `Icon Button` (solo icono).
 
 :::info
-Embebe el componente real con `::figma <url del frame de Button>` para mostrar las variantes en vivo. Los nombres de variante de abajo son los de la librería.
+Los botones de abajo están construidos con los tokens reales (modo Pacífico) y se muestran sobre fondo blanco. Para ver el frame de Figma, embébelo con `::figma <url del frame de Button>`.
 :::
+
+## Previsualización
+
+<div class="ds-preview">
+<p class="ds-caption">Variantes de jerarquía</p>
+<button class="ds-btn ds-btn--primary">Primary</button>
+<button class="ds-btn ds-btn--secondary">Secondary</button>
+<button class="ds-btn ds-btn--neutral">Neutral</button>
+<button class="ds-btn ds-btn--ghost">Ghost</button>
+<button class="ds-btn ds-btn--highlight">Highlight</button>
+<button class="ds-btn ds-btn--error">Error</button>
+</div>
+
+<div class="ds-preview">
+<p class="ds-caption">Tamaños (Large · Medium · Small)</p>
+<button class="ds-btn ds-btn--primary ds-btn--lg">Agendar cita</button>
+<button class="ds-btn ds-btn--primary">Agendar cita</button>
+<button class="ds-btn ds-btn--primary ds-btn--sm">Agendar cita</button>
+</div>
+
+<div class="ds-preview">
+<p class="ds-caption">Estados y con icono</p>
+<button class="ds-btn ds-btn--primary"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Con icono</button>
+<button class="ds-btn ds-btn--primary is-loading"><span class="ds-spin"></span>Cargando</button>
+<button class="ds-btn ds-btn--primary is-disabled" disabled>Deshabilitado</button>
+</div>
+
+<div class="ds-preview">
+<p class="ds-caption">Icon Button</p>
+<button class="ds-iconbtn ds-iconbtn--primary" aria-label="Añadir"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+<button class="ds-iconbtn ds-iconbtn--secondary" aria-label="Editar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button>
+<button class="ds-iconbtn ds-iconbtn--neutral" aria-label="Más opciones"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="12" cy="19" r="1.6"/></svg></button>
+<button class="ds-iconbtn ds-iconbtn--ghost" aria-label="Cerrar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+<button class="ds-iconbtn ds-iconbtn--danger" aria-label="Eliminar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg></button>
+</div>
 
 ## Button — variantes
 
