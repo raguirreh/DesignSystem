@@ -90,11 +90,104 @@
       .trim();
   }
 
+  /* ---------- Contenido cifrado (sitio privado) ----------
+     Si existe content.enc.json (generado por tools/encrypt-content.mjs
+     en el despliegue), todo el contenido está cifrado con AES-256-GCM.
+     Se pide la contraseña al cargar y se descifra en el navegador.
+  -------------------------------------------------------- */
+  function fromB64(str) {
+    return Uint8Array.from(atob(str), (c) => c.charCodeAt(0));
+  }
+
+  async function decryptBundle(bundle, password) {
+    const baseKey = await crypto.subtle.importKey("raw", new TextEncoder().encode(password), "PBKDF2", false, ["deriveKey"]);
+    const key = await crypto.subtle.deriveKey(
+      { name: "PBKDF2", salt: fromB64(bundle.salt), iterations: bundle.iterations, hash: "SHA-256" },
+      baseKey,
+      { name: "AES-GCM", length: 256 },
+      false,
+      ["decrypt"]
+    );
+    const plain = await crypto.subtle.decrypt({ name: "AES-GCM", iv: fromB64(bundle.iv) }, key, fromB64(bundle.data));
+    return JSON.parse(new TextDecoder().decode(plain));
+  }
+
+  function applyBundle(payload) {
+    manifest = payload.manifest;
+    for (const rel in payload.pages) pageCache["content/" + rel + ".md"] = payload.pages[rel];
+  }
+
+  function askPassword(bundle) {
+    return new Promise((resolve) => {
+      app.innerHTML =
+        '<section class="lock-screen"><div class="lock-card">' +
+        '<span class="brand-mark lock-mark">◈</span>' +
+        "<h1>Documentación privada</h1>" +
+        "<p>Introduce la contraseña para acceder al design system.</p>" +
+        '<form id="lock-form"><input type="password" id="lock-input" placeholder="Contraseña" autocomplete="current-password" autofocus />' +
+        '<button type="submit">Entrar</button></form>' +
+        '<p class="lock-error" id="lock-error" hidden>Contraseña incorrecta. Inténtalo de nuevo.</p>' +
+        "</div></section>";
+      const form = document.getElementById("lock-form");
+      const input = document.getElementById("lock-input");
+      const error = document.getElementById("lock-error");
+      input.focus();
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const btn = form.querySelector("button");
+        btn.disabled = true;
+        btn.textContent = "Comprobando…";
+        try {
+          const payload = await decryptBundle(bundle, input.value);
+          sessionStorage.setItem("ds-pass", input.value);
+          resolve(payload);
+        } catch (err) {
+          error.hidden = false;
+          input.value = "";
+          input.focus();
+          btn.disabled = false;
+          btn.textContent = "Entrar";
+        }
+      });
+    });
+  }
+
+  async function loadEncrypted() {
+    const res = await fetch("content.enc.json");
+    if (!res.ok) return false;
+    const bundle = await res.json();
+    const saved = sessionStorage.getItem("ds-pass");
+    if (saved) {
+      try {
+        applyBundle(await decryptBundle(bundle, saved));
+        return true;
+      } catch (e) {
+        sessionStorage.removeItem("ds-pass");
+      }
+    }
+    applyBundle(await askPassword(bundle));
+    return true;
+  }
+
   /* ---------- Carga de contenido ---------- */
   async function loadManifest() {
+    // Build de un solo archivo (preview): el contenido va inline y no se
+    // usa fetch. Ver tools/build-preview.mjs.
+    if (window.__DS_INLINE__) {
+      applyBundle(window.__DS_INLINE__);
+      applySiteMeta();
+      return;
+    }
     const res = await fetch("content/manifest.json");
-    if (!res.ok) throw new Error("No se pudo cargar content/manifest.json");
+    if (!res.ok) {
+      if (await loadEncrypted()) { applySiteMeta(); return; }
+      throw new Error("No se pudo cargar el contenido");
+    }
     manifest = await res.json();
+    applySiteMeta();
+  }
+
+  function applySiteMeta() {
     document.title = manifest.site.title;
     document.querySelector(".brand-name").textContent = manifest.site.title;
     document.getElementById("footer-text").textContent = manifest.site.title + " · Documentación viva";

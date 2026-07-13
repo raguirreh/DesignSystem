@@ -536,6 +536,60 @@ a:hover { text-decoration: underline; }
 
 .loading { padding: 80px; text-align: center; color: var(--text-muted); }
 
+/* ---------- Pantalla de contraseña (sitio privado) ---------- */
+.lock-screen {
+  min-height: calc(100vh - 160px);
+  display: grid;
+  place-items: center;
+  padding: 40px 24px;
+}
+.lock-card {
+  width: 100%;
+  max-width: 380px;
+  text-align: center;
+  padding: 40px 32px;
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+}
+.lock-mark {
+  width: 48px;
+  height: 48px;
+  font-size: 24px;
+  border-radius: 12px;
+  margin: 0 auto 18px;
+}
+.lock-card h1 { font-size: 22px; margin: 0 0 8px; }
+.lock-card p { font-size: 14px; color: var(--text-muted); margin: 0 0 22px; }
+.lock-card form { display: flex; flex-direction: column; gap: 10px; }
+.lock-card input {
+  font-family: inherit;
+  font-size: 15px;
+  padding: 11px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  color: var(--text);
+  outline: none;
+  text-align: center;
+}
+.lock-card input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent); }
+.lock-card button {
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 11px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+}
+.lock-card button:hover { background: var(--accent-strong); }
+.lock-card button:disabled { opacity: 0.6; cursor: wait; }
+.lock-error { color: var(--danger) !important; margin: 14px 0 0 !important; }
+
 /* ---------- Responsive ---------- */
 @media (max-width: 900px) {
   .header-nav { display: none; }

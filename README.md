@@ -48,9 +48,18 @@ npx serve .        # o: python3 -m http.server 8000
 
 (El sitio carga el contenido con `fetch`, así que necesita servirse por HTTP; abrir `index.html` directamente desde el disco no funciona.)
 
-## Publicar en GitHub Pages
+## Publicar en GitHub Pages (sitio privado con contraseña)
 
-El workflow `.github/workflows/deploy.yml` despliega automáticamente en cada push a `main`. Solo hay que activarlo una vez:
+El workflow `.github/workflows/deploy.yml` despliega automáticamente en cada push a `main`. El sitio publicado está **protegido por contraseña**: durante el despliegue, todo el contenido (manifest + Markdown) se cifra con AES-256-GCM (`tools/encrypt-content.mjs`) y el navegador lo descifra solo tras introducir la contraseña correcta. Los archivos publicados no contienen el contenido en claro.
 
-1. En GitHub: **Settings → Pages → Source → GitHub Actions**.
-2. Haz merge a `main`. El sitio quedará en `https://<usuario>.github.io/DesignSystem/`.
+Configuración (una sola vez):
+
+1. En GitHub: **Settings → Secrets and variables → Actions → New repository secret**, crea `SITE_PASSWORD` con la contraseña de acceso. Sin este secret el despliegue se detiene (no se publica nada en abierto).
+2. Haz merge a `main` (o lanza el workflow manualmente desde la pestaña Actions). El workflow activa GitHub Pages automáticamente y el sitio queda en `https://<usuario>.github.io/DesignSystem/`.
+
+Notas de seguridad:
+
+- Mantén el **repositorio privado**: el Markdown vive en claro en el repo; el cifrado protege solo el sitio publicado.
+- Para cambiar la contraseña, actualiza el secret y vuelve a desplegar. La sesión se recuerda solo durante la pestaña abierta (`sessionStorage`).
+- Si algún día quieres el sitio público sin contraseña, sustituye el paso "Construir sitio con contenido cifrado" del workflow por una copia directa de `content/` a `_site/`.
+- Si más adelante necesitas control de acceso por usuario (correos concretos, SSO), la alternativa recomendada es Cloudflare Pages + Cloudflare Access; no se necesita para la protección por contraseña.
