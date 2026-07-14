@@ -124,6 +124,54 @@
           "slug": "navegacion",
           "description": "Breadcrumb, Tabs y Pagination para moverse por el producto.",
           "keywords": ["navegación", "breadcrumb", "migas", "tabs", "pestañas", "pagination", "paginación", "navbar"]
+        },
+        {
+          "title": "Dropdown y menús",
+          "slug": "dropdown",
+          "description": "Menús de opciones y acciones sobre un disparador.",
+          "keywords": ["dropdown", "menú", "menu", "opciones", "acciones", "select", "contextual"]
+        },
+        {
+          "title": "Búsqueda",
+          "slug": "busqueda",
+          "description": "Campo de búsqueda con lupa y filtrado.",
+          "keywords": ["search", "búsqueda", "buscar", "lupa", "filtrar", "encontrar"]
+        },
+        {
+          "title": "Modales y diálogos",
+          "slug": "modal",
+          "description": "Diálogos que interrumpen el flujo para una decisión.",
+          "keywords": ["modal", "diálogo", "dialog", "popup", "confirmación", "overlay"]
+        },
+        {
+          "title": "Enlaces",
+          "slug": "enlaces",
+          "description": "Links: navegación a otra ubicación o recurso.",
+          "keywords": ["enlace", "link", "links", "hipervínculo", "navegación", "externo"]
+        },
+        {
+          "title": "Verificación (MFA)",
+          "slug": "mfa",
+          "description": "Input de código de un solo uso (OTP / 2FA).",
+          "keywords": ["mfa", "otp", "2fa", "código", "verificación", "autenticación", "dígitos"]
+        },
+        {
+          "title": "Tablas",
+          "slug": "tabla",
+          "description": "Table y Cell: datos estructurados en filas y columnas.",
+          "keywords": ["tabla", "table", "cell", "celda", "datos", "listado", "columnas", "filas"]
+        },
+        {
+          "title": "Tarjetas",
+          "slug": "tarjetas",
+          "description": "Cards: Person card y tarjetas de contenido.",
+          "keywords": ["tarjeta", "card", "person card", "contenedor", "panel", "contenido"]
+        },
+        {
+          "title": "Estructura",
+          "slug": "estructura",
+          "description": "Navbar, Sidebar, Header y Footer del marco de la app.",
+          "keywords": ["navbar", "sidebar", "header", "footer", "estructura", "layout", "navegación", "marco"]
         }
       ]
     },

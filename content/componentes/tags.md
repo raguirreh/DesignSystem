@@ -60,6 +60,16 @@ Anatomía: contenedor con radio `border radio/circular` (píldora), texto `Sizes
 
 Pequeño indicador que se posa sobre otro elemento (icono de notificaciones, avatar). Muestra un número o un punto de estado. Si el número supera 99, muestra `99+`.
 
+## Promotional Tag
+
+Etiqueta destacada para comunicar algo comercial o novedoso (nuevo, oferta, destacado). Usa el color de marca para llamar la atención sin competir con los estados.
+
+<div class="ds-preview">
+<span class="ds-tag ds-tag--brand">✦ Nuevo</span>
+<span class="ds-tag ds-tag--brand">Destacado</span>
+<span class="ds-tag" style="background:var(--p-secondary-xlow);color:var(--p-secondary-high)">-20% este mes</span>
+</div>
+
 ## Reglas de uso
 
 :::do
