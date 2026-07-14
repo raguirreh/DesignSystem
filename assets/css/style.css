@@ -842,3 +842,48 @@ a:hover { text-decoration: underline; }
   .hero-chips { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .hero-search { flex-wrap: nowrap; }
 }
+
+/* ============================================================
+   Border Beam en las tarjetas del home (solo al hover).
+   Equivalente en CSS puro del componente border-beam.
+   ============================================================ */
+@property --beam-angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+@keyframes beam-spin { to { --beam-angle: 360deg; } }
+
+/* Desactiva la barra superior previa para no duplicar el efecto */
+.section-card::before { content: none; }
+
+.section-card { --beam-from: #0099CC; --beam-to: #E02667; }
+.section-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.6px;
+  background: conic-gradient(
+    from var(--beam-angle),
+    transparent 0turn,
+    transparent 0.60turn,
+    var(--beam-from) 0.72turn,
+    var(--beam-to) 0.85turn,
+    transparent 0.96turn,
+    transparent 1turn
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.25s var(--ease-out);
+  pointer-events: none;
+}
+.section-card:hover::after {
+  opacity: 1;
+  animation: beam-spin 3s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .section-card:hover::after {
+    animation: none;
+    background: linear-gradient(90deg, var(--beam-from), var(--beam-to));
+  }
+}
