@@ -239,9 +239,20 @@
     applySiteMeta();
   }
 
+  // "Blister Design System" → "Blister DS" (nombre + iniciales del resto).
+  function shortTitle(title) {
+    var m = title.trim().match(/^(\S+)\s+(.+)$/);
+    if (!m) return title;
+    var initials = m[2].split(/\s+/).map(function (w) { return w.charAt(0).toUpperCase(); }).join("");
+    return m[1] + " " + initials;
+  }
+
   function applySiteMeta() {
     document.title = manifest.site.title;
-    document.querySelector(".brand-name").textContent = manifest.site.title;
+    var full = document.querySelector(".brand-name--full");
+    var short = document.querySelector(".brand-name--short");
+    if (full) full.textContent = manifest.site.title;
+    if (short) short.textContent = shortTitle(manifest.site.title);
     document.getElementById("footer-text").textContent = manifest.site.title + " · Documentación viva";
     if (manifest.site.figmaUrl) {
       const link = document.getElementById("footer-figma-link");

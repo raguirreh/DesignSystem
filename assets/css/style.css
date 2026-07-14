@@ -127,7 +127,15 @@ a:hover { text-decoration: underline; }
   width: 32px;
   height: 32px;
   display: block;
+  flex-shrink: 0;
   object-fit: contain;
+}
+.brand-name { white-space: nowrap; }
+.brand-name--short { display: none; }
+/* Formato corto cuando no hay espacio para el nombre completo. */
+@media (max-width: 720px) {
+  .brand-name--full { display: none; }
+  .brand-name--short { display: inline; }
 }
 
 .header-nav {
