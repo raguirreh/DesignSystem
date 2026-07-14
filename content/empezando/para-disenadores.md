@@ -11,7 +11,7 @@ Guía rápida para diseñar con las librerías del design system de Pacífico en
 
 ## 2. Elige la marca con los modos
 
-El sistema es multimarca (Sanna · Tsanna · **Pacífico**). No dupliques componentes por marca: usa los **modos** de las variables de color. Al cambiar el modo, los tokens `brand/*` adoptan los colores correctos automáticamente.
+El sistema es multimarca (Sanna · Tsana · **Pacífico**). No dupliques componentes por marca: usa los **modos** de las variables de color. Al cambiar el modo, los tokens `brand/*` adoptan los colores correctos automáticamente.
 
 ## 3. Usa siempre tokens y componentes publicados
 

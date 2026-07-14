@@ -1,8 +1,8 @@
 {
   "site": {
-    "title": "Pacífico · Design System",
-    "tagline": "Design System · Pacífico Salud",
-    "description": "La fuente única de verdad para diseñar y construir los productos digitales de Pacífico: tokens, fundamentos, componentes y principios, con soporte multimarca (Sanna · Tsanna · Pacífico).",
+    "title": "Blister Design System",
+    "tagline": "Blister · el Design System de Pacífico Salud",
+    "description": "Blister es el design system de Pacífico Salud: la fuente única de verdad para diseñar y construir productos digitales consistentes — tokens, fundamentos, componentes y principios, con soporte multimarca (Sanna · Tsana · Pacífico).",
     "figmaUrl": "",
     "quickSearches": ["Botones", "Colores de marca", "Tokens", "Tipografía", "Inputs", "Espaciado", "Multimarca"]
   },
@@ -16,8 +16,8 @@
         {
           "title": "Introducción",
           "slug": "introduccion",
-          "description": "Qué es el design system de Pacífico y cómo está estructurado.",
-          "keywords": ["inicio", "overview", "qué es", "propósito", "pacífico", "sanna", "tsanna", "multimarca"]
+          "description": "Qué es Blister, el design system de Pacífico Salud, y cómo está estructurado.",
+          "keywords": ["inicio", "overview", "qué es", "propósito", "blister", "pacífico", "sanna", "tsana", "multimarca"]
         },
         {
           "title": "Para diseñadores",
@@ -49,7 +49,7 @@
           "title": "Arquitectura de tokens",
           "slug": "arquitectura-tokens",
           "description": "Cómo se relacionan primitivos, tokens semánticos y modos de marca.",
-          "keywords": ["tokens", "arquitectura", "primitivos", "semántico", "alias", "modos", "marca", "multimarca", "sanna", "tsanna", "pacífico"]
+          "keywords": ["tokens", "arquitectura", "primitivos", "semántico", "alias", "modos", "marca", "multimarca", "sanna", "tsana", "pacífico"]
         },
         {
           "title": "Color",

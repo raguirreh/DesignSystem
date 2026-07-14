@@ -48,9 +48,9 @@ El color transmite la identidad de la marca y organiza la información. Todo col
 
 Es lo que usas al diseñar y construir. Se nombran por **rol / familia / variante / intensidad** y hay 5 roles: `Fill`, `Text`, `Icons`, `Stroke`, `Surface`. Los valores de abajo son del modo **Pacífico**.
 
-### Marca (cambia según Sanna · Tsanna · Pacífico)
+### Marca (cambia según Sanna · Tsana · Pacífico)
 
-| Token | Pacífico | Sanna | Tsanna |
+| Token | Pacífico | Sanna | Tsana |
 | --- | --- | --- | --- |
 | `brand/primary/xhigh` | `#003840` | `#00230C` | `#101332` |
 | `brand/primary/medium` | `#0099CC` | `#01A355` | `#5D59EF` |
