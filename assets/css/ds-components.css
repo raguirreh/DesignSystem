@@ -46,7 +46,7 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 16px;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 .ds-preview.ds-col { flex-direction: column; align-items: stretch; }
 .ds-preview .ds-row { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
@@ -69,7 +69,7 @@
   padding: 0 16px;
   border: 1px solid transparent;
   border-radius: var(--r-sm);
-  font: 600 14px/1 "Inter", sans-serif;
+  font: 600 14px/1 "Roboto", sans-serif;
   cursor: pointer;
   white-space: nowrap;
   transition: filter .15s, background .15s;
@@ -268,7 +268,7 @@
 .ds-dd-trigger {
   display: flex; align-items: center; justify-content: space-between; gap: 8px;
   height: 40px; padding: 0 12px; border: 1px solid var(--n-low); border-radius: var(--r-sm);
-  background: #fff; font: 14px "Inter",sans-serif; color: var(--n-xhigh); cursor: pointer;
+  background: #fff; font: 14px "Roboto",sans-serif; color: var(--n-xhigh); cursor: pointer;
 }
 .ds-dd-menu {
   margin-top: 6px; border: 1px solid var(--n-low); border-radius: var(--r-sm);
@@ -287,7 +287,7 @@
   display: flex; align-items: center; gap: 10px; height: 40px; padding: 0 14px;
   border: 1px solid var(--n-low); border-radius: var(--r-pill); background: #fff; width: 320px; color: var(--n-medium);
 }
-.ds-search input { border: none; outline: none; flex: 1; font: 14px "Inter",sans-serif; color: var(--n-xhigh); background: none; }
+.ds-search input { border: none; outline: none; flex: 1; font: 14px "Roboto",sans-serif; color: var(--n-xhigh); background: none; }
 
 /* Modal / Diálogo */
 .ds-modal {
@@ -310,7 +310,7 @@
 .ds-mfa { display: flex; gap: 10px; }
 .ds-mfa .cell {
   width: 44px; height: 52px; display: grid; place-items: center;
-  font: 600 20px "Inter",sans-serif; border: 1px solid var(--n-low); border-radius: var(--r-sm);
+  font: 600 20px "Roboto",sans-serif; border: 1px solid var(--n-low); border-radius: var(--r-sm);
   color: var(--n-xhigh); background: #fff;
 }
 .ds-mfa .cell.is-filled { border-color: var(--p-primary); }
