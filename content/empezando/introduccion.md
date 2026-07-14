@@ -1,6 +1,6 @@
 # Introducción
 
-Bienvenido a la documentación del **Design System de Pacífico**. Este sitio es la fuente única de verdad para diseñar y construir productos digitales consistentes: aquí viven la arquitectura de tokens, los principios de diseño, la documentación de componentes y los recursos del equipo.
+Bienvenido a **Blister**, el **Design System de Pacífico Salud**. Este sitio es la fuente única de verdad para diseñar y construir los productos digitales de Pacífico Salud de forma consistente: aquí viven la arquitectura de tokens, los principios de diseño, la documentación de componentes y los recursos del equipo.
 
 ## Un sistema, varias marcas
 
@@ -10,7 +10,7 @@ El design system está construido sobre **tokens** y soporta varias marcas a la 
 | --- | --- | --- |
 | **Pacífico** | `#0099CC` | `#E02667` |
 | **Sanna** | `#01A355` | `#5D59EF` |
-| **Tsanna** | `#5D59EF` | `#01A355` |
+| **Tsana** | `#5D59EF` | `#01A355` |
 
 Esto significa que un botón "primario" es siempre el mismo componente: al cambiar el modo de marca, adopta automáticamente los colores correctos sin rediseñar nada.
 

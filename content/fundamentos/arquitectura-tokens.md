@@ -12,7 +12,7 @@ Primitivos          →   Semánticos          →   Modos de marca
 
 Blue/medium #0099CC  →  Fill/brand/primary/   →  Pacífico → Blue
                         medium                   Sanna    → Green
-                                                 Tsanna   → Purple
+                                                 Tsana   → Purple
 ```
 
 ### 1. Primitivos — *el valor*
@@ -48,9 +48,9 @@ Surface/status/success/xlow
 
 ### 3. Modos de marca — *qué marca aplica*
 
-Los tokens semánticos de marca (`brand/*`) se resuelven distinto según el **modo**: Sanna, Tsanna o Pacífico. Los tokens `neutral` y `status` son compartidos: se ven igual en las tres marcas.
+Los tokens semánticos de marca (`brand/*`) se resuelven distinto según el **modo**: Sanna, Tsana o Pacífico. Los tokens `neutral` y `status` son compartidos: se ven igual en las tres marcas.
 
-| Token | Pacífico | Sanna | Tsanna |
+| Token | Pacífico | Sanna | Tsana |
 | --- | --- | --- | --- |
 | `Fill/brand/primary/medium` | `#0099CC` | `#01A355` | `#5D59EF` |
 | `Fill/brand/secondary/medium` | `#E02667` | `#5D59EF` | `#01A355` |
@@ -64,7 +64,7 @@ En la **Core Tokens Library** los tokens viven en estas colecciones de variables
 | Colección | Contenido | Modos |
 | --- | --- | --- |
 | **Primitives Colors** | 50 colores base | Value |
-| **Core color variables** | 175 tokens semánticos de color | Sanna · Tsanna · Pacífico |
+| **Core color variables** | 175 tokens semánticos de color | Sanna · Tsana · Pacífico |
 | **Primitive Typography** | 8 tamaños de fuente | Mode 1 |
 | **Primitives Scale** | 15 pasos de escala numérica | Mode 1 |
 | **Core Sizes** | Espaciado, radios y grosores | Mode 1 |

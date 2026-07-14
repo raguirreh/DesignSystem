@@ -62,7 +62,7 @@ Los valores anteriores están extraídos de la librería real. Lo ideal es **exp
 
 ## Multimarca
 
-El sistema tiene tres modos: **Pacífico, Sanna, Tsanna**. Solo cambian los tokens `brand/*`; `neutral/*` y `status/*` son compartidos. Implementa la marca como un atributo raíz (`data-brand`) y deja que los tokens semánticos hagan el resto: los componentes no cambian.
+El sistema tiene tres modos: **Pacífico, Sanna, Tsana**. Solo cambian los tokens `brand/*`; `neutral/*` y `status/*` son compartidos. Implementa la marca como un atributo raíz (`data-brand`) y deja que los tokens semánticos hagan el resto: los componentes no cambian.
 
 ## Reglas de implementación
 

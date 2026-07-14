@@ -4,10 +4,15 @@ Historial de cambios del design system. Cada publicación de las librerías de F
 
 ## Julio 2026
 
+### 13 de julio — El design system ahora es Blister
+
+- 🏷️ El design system de Pacífico Salud pasa a llamarse **Blister**. Se actualizó el nombre y las descripciones en todo el sitio.
+- ✏️ Corrección del nombre de marca **Tsana** (antes "Tsanna").
+
 ### 13 de julio — Documentación alimentada con datos reales
 
 - 🔄 La documentación ahora refleja las librerías reales **Core Tokens Library** y **Global Components Library**.
-- ✨ Nueva página **Arquitectura de tokens**: primitivos → semánticos → modos de marca (Sanna · Tsanna · Pacífico).
+- ✨ Nueva página **Arquitectura de tokens**: primitivos → semánticos → modos de marca (Sanna · Tsana · Pacífico).
 - ✨ **Color** con la paleta primitiva real (50 colores, 10 familias) y los tokens semánticos (Fill, Text, Icons, Stroke, Surface).
 - ✨ **Tipografía**, **Espaciado y medidas** con las escalas reales (tamaños xs–4xl, Scale 0–160, radios y grosores).
 - ✨ Componentes reales: **Botones** (Button e Icon Button), **Campos de texto** (Text Field y Select), **Controles de selección** (Radio, Checkbox, Toggle), **Tags/Chips/Badges** y **Retroalimentación** (Toast, Section Message).
