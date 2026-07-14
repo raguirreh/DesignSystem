@@ -430,10 +430,6 @@
       )
       .join("");
 
-    const links = manifest.sections
-      .map((section) => '<a href="#/' + section.slug + "/" + section.pages[0].slug + '">' + escapeHtml(section.title) + "</a>")
-      .join("");
-
     app.innerHTML =
       '<section class="hero">' +
       (window.__dsIsAdmin ? '<button class="edit-btn edit-btn--hero" id="edit-home" type="button">✏️ Editar textos</button>' : "") +
@@ -444,8 +440,7 @@
       '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>' +
       '<span class="hero-search-ph">Busca componentes, colores, principios…</span>' +
       '<span class="hero-search-btn">Buscar</span></button>' +
-      '<div class="hero-chips">' + chips + "</div>" +
-      '<nav class="hero-links">' + links + "</nav></section>" +
+      '<div class="hero-chips">' + chips + "</div></section>" +
       '<section class="home-sections"><h2>Explora la documentación</h2><div class="card-grid">' + cards + "</div></section>";
 
     document.getElementById("hero-search").addEventListener("click", () => openSearch());
