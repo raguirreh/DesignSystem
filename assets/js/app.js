@@ -13,6 +13,7 @@
   let manifest = null;
   let searchIndex = []; // [{ route, section, title, description, text, keywords }]
   let indexReady = false;
+  let overrides = {}; // textos sobrescritos por el admin (Supabase)
 
   /* ---------- Tema ---------- */
   const savedTheme = localStorage.getItem("ds-theme");
@@ -213,6 +214,35 @@
       .join("");
   }
 
+  /* ---------- Sobrescrituras de contenido (editor de admin) ---------- */
+  async function loadOverrides() {
+    overrides = {};
+    const sbc = window.__dsSupabase;
+    if (!sbc) return;
+    try {
+      const res = await sbc.from("content_overrides").select("key, content");
+      if (res.data) res.data.forEach((r) => { overrides[r.key] = r.content; });
+    } catch (e) { /* sin overrides: se usa el contenido base */ }
+  }
+
+  async function saveOverride(key, content) {
+    const sbc = window.__dsSupabase;
+    if (!sbc) throw new Error("Sin conexión");
+    const res = await sbc.from("content_overrides").upsert({
+      key: key, content: content, updated_by: window.__dsUserEmail || null, updated_at: new Date().toISOString(),
+    });
+    if (res.error) throw res.error;
+    overrides[key] = content;
+  }
+
+  async function resetOverride(key) {
+    const sbc = window.__dsSupabase;
+    if (!sbc) throw new Error("Sin conexión");
+    const res = await sbc.from("content_overrides").delete().eq("key", key);
+    if (res.error) throw res.error;
+    delete overrides[key];
+  }
+
   const pageCache = {};
   async function fetchPage(section, page) {
     const path = "content/" + section + "/" + page + ".md";
@@ -378,8 +408,15 @@
   });
 
   /* ---------- Vistas ---------- */
+  function homeText(key, fallback) {
+    return overrides["home:" + key] != null ? overrides["home:" + key] : fallback;
+  }
+
   function renderHome() {
     const s = manifest.site;
+    const eyebrow = homeText("eyebrow", s.tagline || "Design System");
+    const title = homeText("title", "¿Qué necesitas saber hoy?");
+    const subtitle = homeText("subtitle", s.description || "");
     const chips = (s.quickSearches || [])
       .map((q) => '<button class="chip" type="button" data-query="' + escapeHtml(q) + '">' + escapeHtml(q) + "</button>")
       .join("");
@@ -395,9 +432,10 @@
 
     app.innerHTML =
       '<section class="hero">' +
-      '<span class="hero-eyebrow">' + escapeHtml(s.tagline || "Design System") + "</span>" +
-      "<h1>¿Qué necesitas saber hoy?</h1>" +
-      '<p class="hero-sub">' + escapeHtml(s.description || "") + "</p>" +
+      (window.__dsIsAdmin ? '<button class="edit-btn edit-btn--hero" id="edit-home" type="button">✏️ Editar textos</button>' : "") +
+      '<span class="hero-eyebrow">' + escapeHtml(eyebrow) + "</span>" +
+      "<h1>" + escapeHtml(title) + "</h1>" +
+      '<p class="hero-sub">' + escapeHtml(subtitle) + "</p>" +
       '<button class="hero-search" type="button" id="hero-search">' +
       '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>' +
       "<span>Busca componentes, colores, principios…</span><kbd>⌘K</kbd></button>" +
@@ -408,7 +446,39 @@
     app.querySelectorAll(".chip").forEach((chip) =>
       chip.addEventListener("click", () => openSearch(chip.dataset.query))
     );
+    if (window.__dsIsAdmin) {
+      document.getElementById("edit-home").addEventListener("click", openHomeEditor);
+    }
     setActiveNav(null);
+  }
+
+  function openHomeEditor() {
+    const s = manifest.site;
+    const fields = [
+      { k: "eyebrow", label: "Etiqueta superior", val: homeText("eyebrow", s.tagline || "") },
+      { k: "title", label: "Título principal", val: homeText("title", "¿Qué necesitas saber hoy?") },
+      { k: "subtitle", label: "Subtítulo", val: homeText("subtitle", s.description || "") },
+    ];
+    openEditor({
+      title: "Editar textos de la portada",
+      body:
+        '<div class="editor-fields">' +
+        fields.map((f) =>
+          '<label class="editor-label">' + escapeHtml(f.label) +
+          (f.k === "subtitle"
+            ? '<textarea class="editor-input" data-key="home:' + f.k + '" rows="3">' + escapeHtml(f.val) + "</textarea>"
+            : '<input class="editor-input" data-key="home:' + f.k + '" value="' + escapeHtml(f.val) + '" />') +
+          "</label>"
+        ).join("") + "</div>",
+      onSave: async (root) => {
+        const inputs = root.querySelectorAll(".editor-input");
+        for (const el of inputs) await saveOverride(el.dataset.key, el.value);
+      },
+      onReset: async () => {
+        for (const f of fields) await resetOverride("home:" + f.k);
+      },
+      after: renderHome,
+    });
   }
 
   function flatPages() {
@@ -424,12 +494,18 @@
     const page = section && section.pages.find((p) => p.slug === pageSlug);
     if (!page) return renderNotFound();
 
+    const overrideKey = sectionSlug + "/" + pageSlug;
     let md;
-    try {
-      md = await fetchPage(sectionSlug, pageSlug);
-    } catch (e) {
-      return renderNotFound();
+    if (overrides[overrideKey] != null) {
+      md = overrides[overrideKey];
+    } else {
+      try {
+        md = await fetchPage(sectionSlug, pageSlug);
+      } catch (e) {
+        return renderNotFound();
+      }
     }
+    const isOverridden = overrides[overrideKey] != null;
 
     const sidebar = manifest.sections
       .map((s) =>
@@ -459,13 +535,95 @@
         : "") +
       "</nav>";
 
+    const editBar = window.__dsIsAdmin
+      ? '<div class="edit-bar"><button class="edit-btn" id="edit-doc" type="button">✏️ Editar esta página</button>' +
+        (isOverridden ? '<span class="edit-flag">Texto personalizado</span>' : "") + "</div>"
+      : "";
+
     app.innerHTML =
       '<div class="doc-layout"><aside class="sidebar">' + sidebar + "</aside>" +
       '<article class="doc-content"><p class="doc-breadcrumb">' + escapeHtml(section.title) + " / " + escapeHtml(page.title) + "</p>" +
+      editBar +
       '<div class="doc-body">' + renderMarkdown(md) + "</div>" + pager + "</article></div>";
 
+    if (window.__dsIsAdmin) {
+      document.getElementById("edit-doc").addEventListener("click", function () {
+        openDocEditor(section, page, overrideKey, md);
+      });
+    }
     setActiveNav(sectionSlug);
     window.scrollTo(0, 0);
+  }
+
+  function openDocEditor(section, page, key, md) {
+    openEditor({
+      title: "Editar: " + section.title + " / " + page.title,
+      wide: true,
+      body:
+        '<p class="editor-hint">Puedes usar Markdown. La vista previa se actualiza al escribir.</p>' +
+        '<div class="editor-split">' +
+        '<textarea class="editor-md" id="editor-md" spellcheck="false">' + escapeHtml(md) + "</textarea>" +
+        '<div class="editor-preview doc-body" id="editor-preview"></div>' +
+        "</div>",
+      onMount: (root) => {
+        const ta = root.querySelector("#editor-md");
+        const pv = root.querySelector("#editor-preview");
+        const upd = () => { pv.innerHTML = renderMarkdown(ta.value); };
+        ta.addEventListener("input", upd);
+        upd();
+      },
+      onSave: async (root) => {
+        await saveOverride(key, root.querySelector("#editor-md").value);
+      },
+      onReset: async () => { await resetOverride(key); },
+      after: () => renderDoc(section.slug, page.slug),
+    });
+  }
+
+  /* ---------- Editor genérico (modal) ---------- */
+  function openEditor(opts) {
+    const modal = document.createElement("div");
+    modal.className = "editor-overlay";
+    modal.innerHTML =
+      '<div class="editor-backdrop" data-close></div>' +
+      '<div class="editor-panel' + (opts.wide ? " editor-panel--wide" : "") + '" role="dialog" aria-modal="true">' +
+      '<div class="editor-head"><h2>' + escapeHtml(opts.title) + '</h2><button class="editor-x" data-close aria-label="Cerrar">✕</button></div>' +
+      '<div class="editor-content">' + opts.body + "</div>" +
+      '<p class="editor-msg" id="editor-msg" hidden></p>' +
+      '<div class="editor-actions">' +
+      '<button class="editor-reset" id="editor-reset" type="button">Restablecer al original</button>' +
+      '<span style="flex:1"></span>' +
+      '<button class="editor-cancel" data-close type="button">Cancelar</button>' +
+      '<button class="editor-save" id="editor-save" type="button">Guardar cambios</button>' +
+      "</div></div>";
+    document.body.appendChild(modal);
+    const close = () => modal.remove();
+    modal.querySelectorAll("[data-close]").forEach((el) => el.addEventListener("click", close));
+    if (opts.onMount) opts.onMount(modal);
+
+    const msg = modal.querySelector("#editor-msg");
+    function showMsg(t, kind) { msg.hidden = false; msg.textContent = t; msg.className = "editor-msg " + (kind || ""); }
+
+    modal.querySelector("#editor-save").addEventListener("click", async function () {
+      const btn = this; btn.disabled = true; btn.textContent = "Guardando…";
+      try {
+        await opts.onSave(modal);
+        close();
+        if (opts.after) opts.after();
+      } catch (e) {
+        showMsg("No se pudo guardar: " + (e.message || e), "err");
+        btn.disabled = false; btn.textContent = "Guardar cambios";
+      }
+    });
+    modal.querySelector("#editor-reset").addEventListener("click", async function () {
+      if (!confirm("¿Restablecer al texto original? Se perderá la personalización.")) return;
+      const btn = this; btn.disabled = true;
+      try {
+        await opts.onReset(modal);
+        close();
+        if (opts.after) opts.after();
+      } catch (e) { showMsg("No se pudo restablecer: " + (e.message || e), "err"); btn.disabled = false; }
+    });
   }
 
   function renderNotFound() {
@@ -502,6 +660,7 @@
     if (started) return;
     started = true;
     loadManifest()
+      .then(loadOverrides)
       .then(() => {
         route();
         buildSearchIndex();

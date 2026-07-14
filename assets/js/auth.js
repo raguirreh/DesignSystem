@@ -177,6 +177,10 @@
     overlay.innerHTML = "";
     document.body.classList.remove("auth-locked");
     injectHeaderAccount();
+    // Exponer para el editor de contenido (app.js)
+    window.__dsSupabase = sb;
+    window.__dsIsAdmin = currentRole === "admin";
+    window.__dsUserEmail = currentUser.email;
     if (window.__startDocs) window.__startDocs();
   }
 
