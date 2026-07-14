@@ -32,8 +32,22 @@
   function redirectURL() { return location.origin + location.pathname; }
 
   /* ---------- Pantalla de login ---------- */
+  function lastEmail() {
+    try { return localStorage.getItem("ds-last-email") || ""; } catch (e) { return ""; }
+  }
+
   function renderLogin(mode) {
     mode = mode || "login";
+    var remembered = lastEmail();
+    var initials = (remembered || "?").slice(0, 2).toUpperCase();
+    var quick = (mode === "login" && remembered)
+      ? '<button type="button" class="auth-quick" id="auth-quick">' +
+          '<span class="auth-avatar">' + esc(initials) + '</span>' +
+          '<span class="auth-quick-txt">Continuar como<b>' + esc(remembered) + '</b></span>' +
+          '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 18 6-6-6-6"/></svg>' +
+        '</button>' +
+        '<button type="button" class="auth-otheracct" id="auth-other">Usar otra cuenta</button>'
+      : "";
     overlay.innerHTML =
       '<div class="auth-card">' +
         '<div class="auth-brand"><img class="auth-mark" src="assets/img/blister-iso.svg" alt="Blister" /><span class="auth-brandname">Blister · Design System</span></div>' +
@@ -41,12 +55,18 @@
           '<button class="auth-tab" data-mode="login">Iniciar sesión</button>' +
           '<button class="auth-tab" data-mode="register">Registrarse</button>' +
         '</div>' +
+        quick +
         '<form class="auth-form" id="auth-form">' +
           '<label class="auth-label">Email corporativo' +
             '<input type="email" id="auth-email" autocomplete="email" placeholder="nombre@pacifico.com.pe" required />' +
           '</label>' +
           '<label class="auth-label">Contraseña' +
-            '<input type="password" id="auth-pass" autocomplete="current-password" placeholder="••••••••" required minlength="6" />' +
+            '<div class="auth-pass-wrap">' +
+              '<input type="password" id="auth-pass" autocomplete="current-password" placeholder="••••••••" required minlength="6" />' +
+              '<button type="button" class="auth-eye" id="auth-eye" aria-label="Mostrar contraseña" aria-pressed="false">' +
+                '<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>' +
+              '</button>' +
+            '</div>' +
           '</label>' +
           '<div class="auth-row">' +
             '<label class="auth-check"><input type="checkbox" id="auth-remember" checked /> Recordarme</label>' +
@@ -68,7 +88,7 @@
     var form = overlay.querySelector("#auth-form");
     var emailEl = overlay.querySelector("#auth-email");
     var passEl = overlay.querySelector("#auth-pass");
-    var passLabel = passEl.parentElement;
+    var passLabel = passEl.closest(".auth-label");
     var submit = overlay.querySelector("#auth-submit");
     var msg = overlay.querySelector("#auth-msg");
 
@@ -77,6 +97,37 @@
       passEl.setAttribute("autocomplete", "new-password");
       passLabel.childNodes[0].nodeValue = "Crea una contraseña";
     }
+
+    // Prellenar con el último correo usado y enfocar la contraseña
+    if (mode === "login" && remembered) {
+      emailEl.value = remembered;
+      setTimeout(function () { passEl.focus(); }, 30);
+    }
+
+    // Ojo: mostrar / ocultar contraseña
+    var eye = overlay.querySelector("#auth-eye");
+    if (eye) {
+      eye.addEventListener("click", function () {
+        var show = passEl.type === "password";
+        passEl.type = show ? "text" : "password";
+        eye.setAttribute("aria-pressed", String(show));
+        eye.setAttribute("aria-label", show ? "Ocultar contraseña" : "Mostrar contraseña");
+        eye.innerHTML = show
+          ? '<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.9 4.24A9.1 9.1 0 0 1 12 4c6.5 0 10 7 10 7a17.6 17.6 0 0 1-2.16 3.19M6.6 6.6A17.8 17.8 0 0 0 2 12s3.5 7 10 7a9.1 9.1 0 0 0 5.4-1.6M1 1l22 22M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg>'
+          : '<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>';
+        passEl.focus();
+      });
+    }
+
+    // Acceso rápido con el último correo
+    var quickBtn = overlay.querySelector("#auth-quick");
+    if (quickBtn) quickBtn.addEventListener("click", function () { passEl.focus(); });
+    var otherBtn = overlay.querySelector("#auth-other");
+    if (otherBtn) otherBtn.addEventListener("click", function () {
+      try { localStorage.removeItem("ds-last-email"); } catch (e) {}
+      renderLogin("login");
+      overlay.querySelector("#auth-email").focus();
+    });
 
     function showMsg(text, kind) {
       msg.hidden = false;
@@ -113,6 +164,8 @@
           submit.textContent = prev;
           return;
         }
+        // Recordar el correo para el acceso rápido la próxima vez
+        try { localStorage.setItem("ds-last-email", email); } catch (e) {}
         if (mode === "register") {
           showMsg("Cuenta creada. Tu acceso queda pendiente de aprobación de un administrador. Si te pedimos confirmar el correo, revísalo primero.", "ok");
           submit.disabled = false;
