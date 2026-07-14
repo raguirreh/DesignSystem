@@ -10,7 +10,7 @@
     {
       "title": "Empezando",
       "slug": "empezando",
-      "icon": "🚀",
+      "icon": "rocket",
       "description": "Qué es el design system, cómo está organizado y cómo empezar a usarlo.",
       "pages": [
         {
@@ -36,7 +36,7 @@
     {
       "title": "Fundamentos",
       "slug": "fundamentos",
-      "icon": "🎨",
+      "icon": "palette",
       "description": "Arquitectura de tokens, principios, color, tipografía, espaciado e iconografía.",
       "pages": [
         {
@@ -80,7 +80,7 @@
     {
       "title": "Componentes",
       "slug": "componentes",
-      "icon": "🧩",
+      "icon": "puzzle",
       "description": "Documentación de los componentes reales: anatomía, variantes y buenas prácticas.",
       "pages": [
         {
@@ -178,7 +178,7 @@
     {
       "title": "Recursos",
       "slug": "recursos",
-      "icon": "📦",
+      "icon": "package",
       "description": "Librerías de Figma, cómo contribuir y registro de cambios.",
       "pages": [
         {

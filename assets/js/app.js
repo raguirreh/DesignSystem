@@ -38,6 +38,43 @@
     return str.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
   }
 
+  /* ---------- Set de iconos (Blister) ----------
+     Fuente única de iconografía del sistema (estilo Material Symbols:
+     outline, trazo 2px, currentColor). Se consume desde un solo lugar:
+     dsIcon(name). Lo usan las tarjetas del home, la directiva ::icons
+     de la página de Iconografía y cualquier uso futuro.
+  ---------------------------------------------- */
+  var DS_ICON_PATHS = {
+    rocket: '<path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>',
+    palette: '<circle cx="12" cy="12" r="9.5"/><circle cx="8.5" cy="10" r="1"/><circle cx="12" cy="8" r="1"/><circle cx="15.5" cy="10" r="1"/><path d="M12 21.5a2 2 0 0 1 0-4h1.2a2.3 2.3 0 0 0 2.3-2.3c0-1.2 1-2.2 2.2-2.2H19"/>',
+    puzzle: '<path d="M20.5 11H19V7a2 2 0 0 0-2-2h-4V3.5a2.5 2.5 0 0 0-5 0V5H4a2 2 0 0 0-2 2v3.8h1.5a2.2 2.2 0 1 1 0 4.4H2V19a2 2 0 0 0 2 2h3.8v-1.5a2.2 2.2 0 1 1 4.4 0V21H17a2 2 0 0 0 2-2v-4h1.5a2.5 2.5 0 0 0 0-5Z"/>',
+    package: '<path d="M21 8v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8"/><path d="M2 4h20l-1.5 4H3.5L2 4z"/><path d="M10 12h4"/>',
+    search: '<circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>',
+    home: '<path d="M3 9.5 12 3l9 6.5V21H3z"/><path d="M9 21v-6h6v6"/>',
+    person: '<path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/>',
+    settings: '<path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2.4"/><circle cx="8" cy="17" r="2.4"/>',
+    check: '<circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/>',
+    document: '<path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h6"/>',
+    bell: '<path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/>',
+    calendar: '<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',
+    close: '<path d="M18 6 6 18M6 6l12 12"/>',
+    plus: '<path d="M12 5v14M5 12h14"/>',
+    menu: '<path d="M3 6h18M3 12h18M3 18h18"/>',
+    chevron: '<path d="m9 18 6-6-6-6"/>',
+  };
+  function dsIcon(name, size) {
+    var p = DS_ICON_PATHS[name];
+    if (!p) return escapeHtml(name || ""); // respaldo si no está en el set
+    var s = size || 24;
+    return '<svg width="' + s + '" height="' + s + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + p + "</svg>";
+  }
+  function iconGallery() {
+    return '<div class="icon-gallery">' +
+      Object.keys(DS_ICON_PATHS).map(function (n) {
+        return '<figure class="icon-tile">' + dsIcon(n, 24) + '<figcaption>' + n + "</figcaption></figure>";
+      }).join("") + "</div>";
+  }
+
   /* ---------- Preprocesado de Markdown ----------
      Directivas propias antes de pasar por marked:
        ::figma <url>            → iframe embebido de Figma
@@ -45,6 +82,9 @@
        `#RRGGBB` dentro del texto → muestra de color automática (post-render)
   ---------------------------------------------- */
   function preprocess(md) {
+    // Galería del set de iconos (consume el registro dsIcon)
+    md = md.replace(/^::icons[ \t]*$/gm, () => iconGallery());
+
     // Embeds de Figma
     md = md.replace(/^::figma[ \t]+(\S+)[ \t]*$/gm, (_, url) => {
       const embedUrl = "https://www.figma.com/embed?embed_host=share&url=" + encodeURIComponent(url);
@@ -423,7 +463,7 @@
     const cards = manifest.sections
       .map((section) =>
         '<a class="section-card reveal" href="#/' + section.slug + "/" + section.pages[0].slug + '">' +
-        '<span class="card-icon">' + (section.icon || "📄") + "</span>" +
+        '<span class="card-icon">' + dsIcon(section.icon, 24) + "</span>" +
         "<h3>" + escapeHtml(section.title) + "</h3>" +
         "<p>" + escapeHtml(section.description || "") + "</p>" +
         '<span class="card-count">' + section.pages.length + (section.pages.length === 1 ? " página" : " páginas") + " →</span></a>"
@@ -433,6 +473,7 @@
     app.innerHTML =
       '<section class="hero">' +
       (window.__dsIsAdmin ? '<button class="edit-btn edit-btn--hero" id="edit-home" type="button">✏️ Editar textos</button>' : "") +
+      '<span class="hero-logo"><img src="assets/img/blister-iso.svg" alt="Blister" /></span>' +
       '<span class="hero-eyebrow">' + escapeHtml(eyebrow) + "</span>" +
       "<h1>" + escapeHtml(title) + "</h1>" +
       '<p class="hero-sub">' + escapeHtml(subtitle) + "</p>" +
@@ -566,10 +607,25 @@
       : "";
 
     app.innerHTML =
-      '<div class="doc-layout"><aside class="sidebar">' + sidebar + "</aside>" +
+      '<div class="doc-layout"><aside class="sidebar" id="doc-sidebar">' +
+        '<button class="sidebar-toggle" id="sidebar-toggle" type="button" aria-expanded="false" aria-controls="sidebar-scroll">' +
+          dsIcon("menu", 18) + "<span>En esta sección</span>" +
+          '<span class="sidebar-toggle-chev">' + dsIcon("chevron", 16) + "</span>" +
+        "</button>" +
+        '<div class="sidebar-scroll" id="sidebar-scroll">' + sidebar + "</div>" +
+      "</aside>" +
       '<article class="doc-content"><p class="doc-breadcrumb">' + escapeHtml(section.title) + " / " + escapeHtml(page.title) + "</p>" +
       editBar +
       '<div class="doc-body">' + renderMarkdown(md) + "</div>" + pager + "</article></div>";
+
+    var sbToggle = document.getElementById("sidebar-toggle");
+    if (sbToggle) {
+      sbToggle.addEventListener("click", function () {
+        var sb = document.getElementById("doc-sidebar");
+        var open = sb.classList.toggle("open");
+        sbToggle.setAttribute("aria-expanded", String(open));
+      });
+    }
 
     if (window.__dsIsAdmin) {
       document.getElementById("edit-doc").addEventListener("click", function () {
