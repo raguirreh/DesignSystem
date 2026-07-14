@@ -430,18 +430,9 @@
       )
       .join("");
 
-    // Estadísticas (contenido más vendedor)
-    const componentCount = (manifest.sections.find((x) => x.slug === "componentes") || { pages: [] }).pages.length;
-    const stats = [
-      { num: "50", lbl: "colores primitivos" },
-      { num: "175", lbl: "tokens semánticos" },
-      { num: String(componentCount), lbl: "componentes" },
-      { num: "3", lbl: "marcas (Sanna·Tsana·Pacífico)" },
-    ];
-    const statsHtml =
-      '<div class="hero-stats">' +
-      stats.map((s) => '<div class="hero-stat"><span class="num">' + s.num + '</span><span class="lbl">' + escapeHtml(s.lbl) + "</span></div>").join("") +
-      "</div>";
+    const links = manifest.sections
+      .map((section) => '<a href="#/' + section.slug + "/" + section.pages[0].slug + '">' + escapeHtml(section.title) + "</a>")
+      .join("");
 
     app.innerHTML =
       '<section class="hero">' +
@@ -451,9 +442,10 @@
       '<p class="hero-sub">' + escapeHtml(subtitle) + "</p>" +
       '<button class="hero-search" type="button" id="hero-search">' +
       '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>' +
-      "<span>Busca componentes, colores, principios…</span><kbd>⌘K</kbd></button>" +
+      '<span class="hero-search-ph">Busca componentes, colores, principios…</span>' +
+      '<span class="hero-search-btn">Buscar</span></button>' +
       '<div class="hero-chips">' + chips + "</div>" +
-      statsHtml + "</section>" +
+      '<nav class="hero-links">' + links + "</nav></section>" +
       '<section class="home-sections"><h2>Explora la documentación</h2><div class="card-grid">' + cards + "</div></section>";
 
     document.getElementById("hero-search").addEventListener("click", () => openSearch());

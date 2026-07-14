@@ -743,3 +743,95 @@ a:hover { text-decoration: underline; }
   .hero, .home-sections, .hero > *, .doc-content, .reveal, .reveal.is-in, .edit-btn--hero { animation: none !important; opacity: 1 !important; transform: none !important; }
   .hero-search:hover, .hero-chips .chip:hover { transform: none; }
 }
+
+/* ============================================================
+   Home editorial (estilo de referencia: serif display + buscador
+   con botón sólido + chips en cuadrícula + enlaces al pie).
+   ============================================================ */
+:root { --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif; }
+
+.hero { padding: 96px 24px 56px; }
+
+.hero-eyebrow {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  font-size: 13px;
+  padding: 6px 15px;
+}
+.hero-eyebrow::before { display: none; }
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(46px, 7.5vw, 88px);
+  letter-spacing: -0.02em;
+  line-height: 1.03;
+  background: none;
+  -webkit-text-fill-color: currentColor;
+  color: var(--text);
+  margin-bottom: var(--space-5);
+}
+
+.hero p.hero-sub {
+  font-size: 19px;
+  line-height: 1.5;
+  max-width: 680px;
+  margin-bottom: var(--space-7);
+}
+
+/* Buscador estilo referencia: barra grande + botón sólido a la derecha */
+.hero-search {
+  max-width: 720px;
+  padding: 8px 8px 8px 22px;
+  border-radius: 14px;
+  gap: 14px;
+  font-size: 17px;
+}
+.hero-search .hero-search-ph { flex: 1; color: var(--text-muted); }
+.hero-search .hero-search-btn {
+  background: var(--text);
+  color: var(--bg);
+  padding: 12px 26px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: opacity 0.15s var(--ease-out);
+}
+.hero-search:hover .hero-search-btn { opacity: 0.88; }
+.hero-search svg { color: var(--text-muted); }
+.hero-search kbd { display: none; }
+
+/* Chips en cuadrícula, grandes y con contorno */
+.hero-chips {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  max-width: 720px;
+  margin: 16px auto 0;
+}
+.hero-chips .chip {
+  padding: 14px 16px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 500;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+  text-align: center;
+}
+.hero-chips .chip:hover { border-color: var(--text-muted); background: var(--bg-subtle); color: var(--text); transform: translateY(-1px); }
+
+/* Enlaces al pie del hero */
+.hero-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 28px; margin-top: 34px; animation-delay: 0.46s; }
+.hero-links a { color: var(--text-muted); font-size: 15px; font-weight: 500; }
+.hero-links a:hover { color: var(--accent); text-decoration: none; }
+
+@media (max-width: 720px) {
+  .hero-chips { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hero-search { flex-wrap: nowrap; }
+}
