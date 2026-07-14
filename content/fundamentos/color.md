@@ -8,6 +8,8 @@ El color transmite la identidad de la marca y organiza la información. Todo col
 
 ### Neutrales — Black
 
+<div class="swatch-strip"><div class="sw"><i style="background:#121314"></i><em>xhigh</em></div><div class="sw"><i style="background:#2E2F33"></i><em>high</em></div><div class="sw"><i style="background:#6A6C74"></i><em>medium</em></div><div class="sw"><i style="background:#F0F1F2"></i><em>low</em></div><div class="sw"><i style="background:#FDFDFD"></i><em>xlow</em></div></div>
+
 | Intensidad | Valor |
 | --- | --- |
 | xhigh | `#121314` |
@@ -17,6 +19,8 @@ El color transmite la identidad de la marca y organiza la información. Todo col
 | xlow | `#FDFDFD` |
 
 ### Blue (primario Pacífico)
+
+<div class="swatch-strip"><div class="sw"><i style="background:#003840"></i><em>xhigh</em></div><div class="sw"><i style="background:#007499"></i><em>high</em></div><div class="sw"><i style="background:#0099CC"></i><em>medium</em></div><div class="sw"><i style="background:#79C2E4"></i><em>low</em></div><div class="sw"><i style="background:#F2F9FD"></i><em>xlow</em></div></div>
 
 | Intensidad | Valor |
 | --- | --- |
@@ -28,6 +32,10 @@ El color transmite la identidad de la marca y organiza la información. Todo col
 
 ### Pink · Green · Purple (marca)
 
+<div class="swatch-strip-group"><span class="swatch-strip-label">Pink</span><div class="swatch-strip"><div class="sw"><i style="background:#40001B"></i><em>xhigh</em></div><div class="sw"><i style="background:#9F0140"></i><em>high</em></div><div class="sw"><i style="background:#E02667"></i><em>medium</em></div><div class="sw"><i style="background:#EF8DA9"></i><em>low</em></div><div class="sw"><i style="background:#FEF4F6"></i><em>xlow</em></div></div></div>
+<div class="swatch-strip-group"><span class="swatch-strip-label">Green</span><div class="swatch-strip"><div class="sw"><i style="background:#00230C"></i><em>xhigh</em></div><div class="sw"><i style="background:#00652C"></i><em>high</em></div><div class="sw"><i style="background:#01A355"></i><em>medium</em></div><div class="sw"><i style="background:#77D296"></i><em>low</em></div><div class="sw"><i style="background:#D6F5DF"></i><em>xlow</em></div></div></div>
+<div class="swatch-strip-group"><span class="swatch-strip-label">Purple</span><div class="swatch-strip"><div class="sw"><i style="background:#101332"></i><em>xhigh</em></div><div class="sw"><i style="background:#323693"></i><em>high</em></div><div class="sw"><i style="background:#5D59EF"></i><em>medium</em></div><div class="sw"><i style="background:#A2ADFB"></i><em>low</em></div><div class="sw"><i style="background:#F3F2FF"></i><em>xlow</em></div></div></div>
+
 | Familia | xhigh | high | medium | low | xlow |
 | --- | --- | --- | --- | --- | --- |
 | **Pink** | `#40001B` | `#9F0140` | `#E02667` | `#EF8DA9` | `#FEF4F6` |
@@ -35,6 +43,12 @@ El color transmite la identidad de la marca y organiza la información. Todo col
 | **Purple** | `#101332` | `#323693` | `#5D59EF` | `#A2ADFB` | `#F3F2FF` |
 
 ### Estados — Ruby · Amber · Jade · Sapphire
+
+<div class="swatch-strip-group"><span class="swatch-strip-label">Ruby · Danger</span><div class="swatch-strip"><div class="sw"><i style="background:#541C1C"></i><em>xhigh</em></div><div class="sw"><i style="background:#B3261E"></i><em>high</em></div><div class="sw"><i style="background:#DC3B31"></i><em>medium</em></div><div class="sw"><i style="background:#F37C72"></i><em>low</em></div><div class="sw"><i style="background:#FDEAEA"></i><em>xlow</em></div></div></div>
+<div class="swatch-strip-group"><span class="swatch-strip-label">Amber · Warning</span><div class="swatch-strip"><div class="sw"><i style="background:#4A2A0F"></i><em>xhigh</em></div><div class="sw"><i style="background:#A65400"></i><em>high</em></div><div class="sw"><i style="background:#DF670C"></i><em>medium</em></div><div class="sw"><i style="background:#F7B66A"></i><em>low</em></div><div class="sw"><i style="background:#FFF3E6"></i><em>xlow</em></div></div></div>
+<div class="swatch-strip-group"><span class="swatch-strip-label">Jade · Success</span><div class="swatch-strip"><div class="sw"><i style="background:#0B3D33"></i><em>xhigh</em></div><div class="sw"><i style="background:#137A66"></i><em>high</em></div><div class="sw"><i style="background:#1FA78D"></i><em>medium</em></div><div class="sw"><i style="background:#4DDDC0"></i><em>low</em></div><div class="sw"><i style="background:#CCF5EA"></i><em>xlow</em></div></div></div>
+<div class="swatch-strip-group"><span class="swatch-strip-label">Sapphire · Informative</span><div class="swatch-strip"><div class="sw"><i style="background:#1B2D3A"></i><em>xhigh</em></div><div class="sw"><i style="background:#0253C6"></i><em>high</em></div><div class="sw"><i style="background:#237CF3"></i><em>medium</em></div><div class="sw"><i style="background:#85B8FD"></i><em>low</em></div><div class="sw"><i style="background:#E9F2FF"></i><em>xlow</em></div></div></div>
+<div class="swatch-strip-group"><span class="swatch-strip-label">Topaz · Acento</span><div class="swatch-strip"><div class="sw"><i style="background:#31301A"></i><em>xhigh</em></div><div class="sw"><i style="background:#835D03"></i><em>high</em></div><div class="sw"><i style="background:#B78803"></i><em>medium</em></div><div class="sw"><i style="background:#F7CF41"></i><em>low</em></div><div class="sw"><i style="background:#FFF5D2"></i><em>xlow</em></div></div></div>
 
 | Familia | Uso | xhigh | high | medium | low | xlow |
 | --- | --- | --- | --- | --- | --- | --- |

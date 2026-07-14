@@ -14,6 +14,14 @@ En la librería ya viven iconos como `search`, `close`, `person`, `check`, `info
 Embebe el catálogo real con `::figma <url del frame de iconos>` para que el equipo vea siempre el set actualizado y pueda copiar cada icono.
 :::
 
+## Set expuesto en el sitio
+
+Este sitio de documentación consume los iconos desde un **único componente reutilizable** (`dsIcon`), de modo que las tarjetas del home, la navegación del sidebar y cualquier uso futuro tomen el trazo desde el mismo lugar en vez de repetir SVGs sueltos o emojis. Estos son los iconos disponibles hoy:
+
+::icons
+
+Cada icono se dibuja con `viewBox` 24×24, trazo de 2px y `currentColor`, así que hereda el color del token de texto o de acento del contexto donde se coloca.
+
 ## Tamaños
 
 | Token | Tamaño | Uso |

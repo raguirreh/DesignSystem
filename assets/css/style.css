@@ -887,3 +887,113 @@ a:hover { text-decoration: underline; }
     background: linear-gradient(90deg, var(--beam-from), var(--beam-to));
   }
 }
+
+/* ============================================================
+   Ajustes puntuales: identidad de marca en hero, iconos de
+   tarjetas, galería de iconos, tiras de swatches y sidebar móvil.
+   ============================================================ */
+
+/* Hero: iso de Blister con acento de marca (token existente) */
+.hero-logo {
+  display: grid;
+  place-items: center;
+  width: 76px;
+  height: 76px;
+  margin: 0 auto var(--space-5);
+  border-radius: 20px;
+  background: var(--accent-soft);
+  border: 1px solid color-mix(in srgb, var(--accent) 24%, transparent);
+  box-shadow: 0 0 0 8px color-mix(in srgb, var(--accent) 7%, transparent);
+}
+.hero-logo img { width: 46px; height: 46px; display: block; }
+
+/* Iconos reales (no emoji) en las tarjetas del home */
+.section-card .card-icon { color: var(--accent); }
+.section-card .card-icon svg { width: 24px; height: 24px; }
+
+/* Galería del set de iconos (::icons en Iconografía) */
+.icon-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 12px;
+  margin: 18px 0;
+}
+.icon-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  padding: 18px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-raised);
+}
+.icon-tile svg { color: var(--accent); }
+.icon-tile figcaption { font-size: 12px; color: var(--text-muted); font-family: var(--mono); }
+
+/* Tira compacta de swatches grandes (xhigh → xlow) sobre cada tabla */
+.swatch-strip {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  margin: 12px 0 8px;
+}
+.swatch-strip .sw { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.swatch-strip .sw i { height: 48px; border-radius: var(--radius-sm); border: 1px solid var(--border); display: block; }
+.swatch-strip .sw em { font-size: 11px; font-style: normal; color: var(--text-muted); text-align: center; }
+.swatch-strip-group { margin: 12px 0 8px; }
+.swatch-strip-group .swatch-strip { margin: 6px 0 0; }
+.swatch-strip-label { display: block; font-size: 12px; font-weight: 600; color: var(--text-muted); letter-spacing: 0.02em; }
+
+/* Sidebar de documentación como drawer colapsable en móvil */
+.sidebar-toggle { display: none; }
+@media (max-width: 900px) {
+  .sidebar { position: static; max-height: none; overflow: visible; padding: 14px 0 0; }
+  .sidebar-toggle {
+    display: flex; align-items: center; gap: 10px; width: 100%;
+    padding: 11px 14px; border: 1px solid var(--border); border-radius: var(--radius-sm);
+    background: var(--bg-subtle); color: var(--text); font: 600 14px var(--font); cursor: pointer;
+  }
+  .sidebar-toggle svg { color: var(--text-muted); }
+  .sidebar-toggle .sidebar-toggle-chev { margin-left: auto; transition: transform 0.2s var(--ease-out); display: inline-flex; }
+  .sidebar.open .sidebar-toggle-chev { transform: rotate(90deg); }
+  .sidebar-scroll { display: none; padding-top: 10px; }
+  .sidebar.open .sidebar-scroll { display: block; }
+}
+
+/* ---------- Botón y modal: kit de tema descargable ---------- */
+.themekit-trigger {
+  display: flex; align-items: center; gap: 7px;
+  padding: 7px 12px; border: 1px solid var(--border); border-radius: 10px;
+  background: var(--accent-soft); color: var(--accent);
+  font: 600 13px var(--font); cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+.themekit-trigger:hover { border-color: var(--accent); }
+.themekit-trigger svg { flex-shrink: 0; }
+@media (max-width: 720px) { .themekit-trigger span { display: none; } .themekit-trigger { padding: 8px; } }
+
+.themekit-panel { max-width: 640px; }
+.themekit-intro { margin: 0 0 18px; font-size: 14px; color: var(--text-muted); line-height: 1.5; }
+.themekit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+@media (max-width: 620px) { .themekit-grid { grid-template-columns: 1fr; } }
+.tk-card {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 8px;
+  padding: 16px; text-align: left; cursor: pointer;
+  border: 1px solid var(--border); border-radius: var(--radius-md, 14px);
+  background: var(--bg); color: var(--text);
+  font-family: inherit; transition: border-color 0.15s, box-shadow 0.15s, transform 0.1s;
+}
+.tk-card:hover { border-color: var(--accent); box-shadow: 0 6px 20px color-mix(in srgb, var(--accent) 12%, transparent); }
+.tk-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.tk-card:disabled { cursor: default; opacity: 0.85; }
+.tk-swatches { display: inline-flex; }
+.tk-sw { width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--bg-raised, var(--bg)); display: block; }
+.tk-sw-2 { margin-left: -10px; }
+.tk-name { font-size: 16px; font-weight: 700; }
+.tk-desc { font-size: 12.5px; color: var(--text-muted); line-height: 1.45; flex: 1; }
+.tk-cta { margin-top: 4px; font-size: 13px; font-weight: 600; color: var(--accent); }
+.themekit-msg { margin: 16px 0 0; font-size: 13px; padding: 10px 12px; border-radius: 10px; }
+.themekit-msg.ok { background: var(--accent-soft); color: var(--accent-strong); }
+.themekit-msg.err { background: color-mix(in srgb, #DC3B31 12%, transparent); color: #B3261E; }

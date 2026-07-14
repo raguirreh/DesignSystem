@@ -57,7 +57,8 @@ Los botones de abajo están construidos con los tokens reales (modo Pacífico) y
 Cada variante define los estados de la librería: **Default, Hover, (Focus), Loading** y deshabilitado.
 
 - **Loading** reemplaza la etiqueta por un spinner y bloquea clics repetidos.
-- **Focus** muestra un anillo visible de 2px (nunca se elimina el outline).
+- **Focus** muestra un anillo visible de 2px (nunca se elimina el outline). Aplica a **todas** las variantes por igual, incluida **Ghost**.
+- **Hover** en las variantes con relleno oscurece ligeramente el fondo. En **Ghost** —que parte de fondo transparente— el hover pinta un relleno sutil con `Fill/neutral/low`, de modo que se lea como accionable y no como texto deshabilitado.
 - Deshabilitado mantiene contraste legible (no menos de 3:1).
 
 ## Anatomía
