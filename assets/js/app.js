@@ -422,13 +422,26 @@
       .join("");
     const cards = manifest.sections
       .map((section) =>
-        '<a class="section-card" href="#/' + section.slug + "/" + section.pages[0].slug + '">' +
+        '<a class="section-card reveal" href="#/' + section.slug + "/" + section.pages[0].slug + '">' +
         '<span class="card-icon">' + (section.icon || "📄") + "</span>" +
         "<h3>" + escapeHtml(section.title) + "</h3>" +
         "<p>" + escapeHtml(section.description || "") + "</p>" +
         '<span class="card-count">' + section.pages.length + (section.pages.length === 1 ? " página" : " páginas") + " →</span></a>"
       )
       .join("");
+
+    // Estadísticas (contenido más vendedor)
+    const componentCount = (manifest.sections.find((x) => x.slug === "componentes") || { pages: [] }).pages.length;
+    const stats = [
+      { num: "50", lbl: "colores primitivos" },
+      { num: "175", lbl: "tokens semánticos" },
+      { num: String(componentCount), lbl: "componentes" },
+      { num: "3", lbl: "marcas (Sanna·Tsana·Pacífico)" },
+    ];
+    const statsHtml =
+      '<div class="hero-stats">' +
+      stats.map((s) => '<div class="hero-stat"><span class="num">' + s.num + '</span><span class="lbl">' + escapeHtml(s.lbl) + "</span></div>").join("") +
+      "</div>";
 
     app.innerHTML =
       '<section class="hero">' +
@@ -439,7 +452,8 @@
       '<button class="hero-search" type="button" id="hero-search">' +
       '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>' +
       "<span>Busca componentes, colores, principios…</span><kbd>⌘K</kbd></button>" +
-      '<div class="hero-chips">' + chips + "</div></section>" +
+      '<div class="hero-chips">' + chips + "</div>" +
+      statsHtml + "</section>" +
       '<section class="home-sections"><h2>Explora la documentación</h2><div class="card-grid">' + cards + "</div></section>";
 
     document.getElementById("hero-search").addEventListener("click", () => openSearch());
@@ -449,7 +463,31 @@
     if (window.__dsIsAdmin) {
       document.getElementById("edit-home").addEventListener("click", openHomeEditor);
     }
+    setupReveal();
     setActiveNav(null);
+  }
+
+  /* Revela elementos .reveal al entrar en el viewport (respeta reduced-motion) */
+  function setupReveal() {
+    const els = app.querySelectorAll(".reveal");
+    if (!els.length) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce || !("IntersectionObserver" in window)) {
+      els.forEach((el) => el.classList.add("is-in"));
+      return;
+    }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          const el = e.target;
+          const idx = Array.prototype.indexOf.call(els, el);
+          el.style.animationDelay = Math.min(idx, 8) * 0.07 + "s";
+          el.classList.add("is-in");
+          io.unobserve(el);
+        }
+      });
+    }, { threshold: 0.12 });
+    els.forEach((el) => io.observe(el));
   }
 
   function openHomeEditor() {
