@@ -257,3 +257,89 @@
 
 /* ---------- Toggle switch label wrap ---------- */
 .ds-preview .w-auto { width: auto; }
+
+/* ============================================================
+   Componentes adicionales (Dropdown, Search, Modal, Links, MFA,
+   Tabla, Cards, Estructura) — tokens Pacífico, fondo blanco.
+   ============================================================ */
+
+/* Dropdown / Menú */
+.ds-dropdown { width: 240px; }
+.ds-dd-trigger {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  height: 40px; padding: 0 12px; border: 1px solid var(--n-low); border-radius: var(--r-sm);
+  background: #fff; font: 14px "Inter",sans-serif; color: var(--n-xhigh); cursor: pointer;
+}
+.ds-dd-menu {
+  margin-top: 6px; border: 1px solid var(--n-low); border-radius: var(--r-sm);
+  background: #fff; box-shadow: 0 8px 24px rgba(18,30,40,.12); padding: 6px;
+}
+.ds-dd-item {
+  display: flex; align-items: center; gap: 10px; padding: 9px 10px; border-radius: 6px;
+  font-size: 14px; color: var(--n-xhigh); cursor: pointer;
+}
+.ds-dd-item:hover { background: var(--p-primary-xlow); }
+.ds-dd-item.is-active { background: var(--p-primary-xlow); color: var(--p-primary-high); font-weight: 600; }
+.ds-dd-sep { height: 1px; background: var(--n-low); margin: 6px 4px; }
+
+/* Search */
+.ds-search {
+  display: flex; align-items: center; gap: 10px; height: 40px; padding: 0 14px;
+  border: 1px solid var(--n-low); border-radius: var(--r-pill); background: #fff; width: 320px; color: var(--n-medium);
+}
+.ds-search input { border: none; outline: none; flex: 1; font: 14px "Inter",sans-serif; color: var(--n-xhigh); background: none; }
+
+/* Modal / Diálogo */
+.ds-modal {
+  width: 380px; border: 1px solid var(--n-low); border-radius: var(--r-md);
+  background: #fff; box-shadow: 0 20px 48px rgba(18,30,40,.18); overflow: hidden;
+}
+.ds-modal-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 18px; border-bottom: 1px solid var(--n-low); }
+.ds-modal-head h4 { margin: 0; font-size: 16px; }
+.ds-modal-head .x { border: none; background: none; font-size: 16px; color: var(--n-medium); cursor: pointer; }
+.ds-modal-body { padding: 16px 18px; font-size: 14px; color: var(--n-high); line-height: 1.55; }
+.ds-modal-foot { display: flex; justify-content: flex-end; gap: 10px; padding: 14px 18px; border-top: 1px solid var(--n-low); }
+
+/* Links */
+.ds-link { color: var(--p-primary-high); font-size: 14px; text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: 5px; }
+.ds-link:hover { text-decoration: underline; }
+.ds-link--inline { text-decoration: underline; }
+.ds-link--muted { color: var(--n-medium); }
+
+/* Input MFA (código de verificación) */
+.ds-mfa { display: flex; gap: 10px; }
+.ds-mfa .cell {
+  width: 44px; height: 52px; display: grid; place-items: center;
+  font: 600 20px "Inter",sans-serif; border: 1px solid var(--n-low); border-radius: var(--r-sm);
+  color: var(--n-xhigh); background: #fff;
+}
+.ds-mfa .cell.is-filled { border-color: var(--p-primary); }
+.ds-mfa .cell.is-active { border-color: var(--p-primary); box-shadow: 0 0 0 3px var(--p-primary-xlow); }
+
+/* Tabla / Cell */
+.ds-table-wrap { width: 100%; overflow-x: auto; }
+.ds-table { width: 100%; border-collapse: collapse; font-size: 14px; border: 1px solid var(--n-low); border-radius: var(--r-sm); overflow: hidden; }
+.ds-table th { text-align: left; padding: 10px 14px; background: var(--n-xlow); font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--n-medium); border-bottom: 1px solid var(--n-low); }
+.ds-table td { padding: 12px 14px; border-bottom: 1px solid var(--n-low); color: var(--n-xhigh); }
+.ds-table tr:last-child td { border-bottom: none; }
+.ds-table tr:hover td { background: var(--n-xlow); }
+
+/* Cards */
+.ds-card { width: 260px; border: 1px solid var(--n-low); border-radius: var(--r-md); background: #fff; padding: 18px; }
+.ds-card-person { display: flex; align-items: center; gap: 12px; }
+.ds-card h4 { margin: 0 0 2px; font-size: 15px; color: var(--n-xhigh); }
+.ds-card p { margin: 0; font-size: 13px; color: var(--n-medium); }
+.ds-card-media { height: 96px; margin: -18px -18px 14px; background: linear-gradient(135deg, var(--p-primary), var(--p-primary-high)); }
+
+/* Estructura: navbar / sidebar / footer */
+.ds-navbar { display: flex; align-items: center; gap: 20px; width: 100%; padding: 12px 18px; border: 1px solid var(--n-low); border-radius: var(--r-sm); background: #fff; }
+.ds-navbar .brand { font-weight: 700; color: var(--p-primary-high); }
+.ds-navbar a { color: var(--n-medium); font-size: 14px; text-decoration: none; }
+.ds-navbar a.is-active { color: var(--n-xhigh); font-weight: 600; }
+.ds-navbar .spacer { flex: 1; }
+
+.ds-sidebar { width: 210px; border: 1px solid var(--n-low); border-radius: var(--r-sm); background: #fff; padding: 10px; }
+.ds-side-item { display: flex; align-items: center; gap: 10px; padding: 9px 10px; border-radius: 6px; font-size: 14px; color: var(--n-medium); }
+.ds-side-item.is-active { background: var(--p-primary-xlow); color: var(--p-primary-high); font-weight: 600; }
+
+.ds-footer { width: 100%; padding: 16px 18px; border: 1px solid var(--n-low); border-radius: var(--r-sm); background: var(--n-xlow); font-size: 13px; color: var(--n-medium); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
