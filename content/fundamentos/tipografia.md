@@ -2,6 +2,15 @@
 
 La tipografía construye la jerarquía de la información. La escala es limitada y con nombres semánticos: cada tamaño tiene un propósito y no se crean valores intermedios.
 
+## Familia oficial
+
+La tipografía oficial de Blister es **Roboto**: se usa en toda la interfaz, la documentación y los titulares. Para código y datos técnicos se usa una monoespaciada.
+
+| Uso | Familia |
+| --- | --- |
+| Interfaz, texto y titulares | **Roboto** |
+| Código y datos técnicos | Roboto Mono / monoespaciada del sistema |
+
 ## Escala de tamaños
 
 Colección **Primitive Typography** de la Core Tokens Library. Ocho tamaños, de `xs` a `4xl`:

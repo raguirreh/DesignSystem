@@ -3,6 +3,13 @@
    Tema claro/oscuro con variables CSS.
    ============================================================ */
 
+/* Tipografía oficial: Roboto (auto-alojada) */
+@font-face { font-family: "Roboto"; font-style: normal; font-weight: 300; font-display: swap; src: url("../fonts/roboto-300.woff2") format("woff2"); }
+@font-face { font-family: "Roboto"; font-style: normal; font-weight: 400; font-display: swap; src: url("../fonts/roboto-400.woff2") format("woff2"); }
+@font-face { font-family: "Roboto"; font-style: normal; font-weight: 500; font-display: swap; src: url("../fonts/roboto-500.woff2") format("woff2"); }
+@font-face { font-family: "Roboto"; font-style: normal; font-weight: 700; font-display: swap; src: url("../fonts/roboto-700.woff2") format("woff2"); }
+@font-face { font-family: "Roboto"; font-style: normal; font-weight: 900; font-display: swap; src: url("../fonts/roboto-900.woff2") format("woff2"); }
+
 /* Colores derivados de la librería real (marca Pacífico):
    primario Blue #007499/#0099CC, neutrales Black, estados Ruby/Amber/Jade/Sapphire. */
 :root {
@@ -45,8 +52,8 @@
   --danger-soft: #fdeaea;
   --info-soft: #e9f2ff;
   --info-border: #85b8fd;
-  --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --mono: "SFMono-Regular", ui-monospace, "JetBrains Mono", Consolas, monospace;
+  --font: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --mono: "Roboto Mono", "SFMono-Regular", ui-monospace, "JetBrains Mono", Consolas, monospace;
   color-scheme: light;
 }
 
@@ -748,7 +755,7 @@ a:hover { text-decoration: underline; }
    Home editorial (estilo de referencia: serif display + buscador
    con botón sólido + chips en cuadrícula + enlaces al pie).
    ============================================================ */
-:root { --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif; }
+:root { --font-display: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; }
 
 .hero { padding: 96px 24px 56px; }
 
@@ -766,10 +773,10 @@ a:hover { text-decoration: underline; }
 
 .hero h1 {
   font-family: var(--font-display);
-  font-weight: 500;
-  font-size: clamp(46px, 7.5vw, 88px);
-  letter-spacing: -0.02em;
-  line-height: 1.03;
+  font-weight: 700;
+  font-size: clamp(44px, 7vw, 80px);
+  letter-spacing: -0.03em;
+  line-height: 1.05;
   background: none;
   -webkit-text-fill-color: currentColor;
   color: var(--text);
@@ -777,9 +784,9 @@ a:hover { text-decoration: underline; }
 }
 
 .hero p.hero-sub {
-  font-size: 19px;
-  line-height: 1.5;
-  max-width: 680px;
+  font-size: 16px;
+  line-height: 1.55;
+  max-width: 620px;
   margin-bottom: var(--space-7);
 }
 
