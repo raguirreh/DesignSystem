@@ -43,9 +43,7 @@ body.auth-locked .site-footer { display: none !important; }
   color: var(--text);
 }
 .auth-mark {
-  display: grid; place-items: center;
-  width: 34px; height: 34px; border-radius: 9px;
-  background: var(--accent); color: #fff; font-size: 17px;
+  width: 38px; height: 38px; display: block; object-fit: contain;
 }
 
 .auth-tabs {

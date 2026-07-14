@@ -36,7 +36,7 @@
     mode = mode || "login";
     overlay.innerHTML =
       '<div class="auth-card">' +
-        '<div class="auth-brand"><span class="auth-mark">◈</span><span class="auth-brandname">Blister · Design System</span></div>' +
+        '<div class="auth-brand"><img class="auth-mark" src="assets/img/blister-iso.svg" alt="Blister" /><span class="auth-brandname">Blister · Design System</span></div>' +
         '<div class="auth-tabs">' +
           '<button class="auth-tab" data-mode="login">Iniciar sesión</button>' +
           '<button class="auth-tab" data-mode="register">Registrarse</button>' +
@@ -136,7 +136,7 @@
     var rejected = status === "rejected";
     overlay.innerHTML =
       '<div class="auth-card">' +
-        '<div class="auth-brand"><span class="auth-mark">◈</span><span class="auth-brandname">Blister · Design System</span></div>' +
+        '<div class="auth-brand"><img class="auth-mark" src="assets/img/blister-iso.svg" alt="Blister" /><span class="auth-brandname">Blister · Design System</span></div>' +
         '<h2 class="auth-title">' + (rejected ? "Solicitud rechazada" : "Solicitud en revisión") + "</h2>" +
         '<p class="auth-help">' +
           (rejected
