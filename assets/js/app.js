@@ -485,7 +485,6 @@
     app.innerHTML =
       '<section class="hero">' +
       (window.__dsIsAdmin ? '<button class="edit-btn edit-btn--hero" id="edit-home" type="button">✏️ Editar textos</button>' : "") +
-      '<span class="hero-eyebrow">' + escapeHtml(eyebrow) + "</span>" +
       "<h1>" + escapeHtml(title) + "</h1>" +
       '<p class="hero-sub">' + escapeHtml(subtitle) + "</p>" +
       '<button class="hero-search" type="button" id="hero-search">' +

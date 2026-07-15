@@ -787,7 +787,7 @@ a:hover { text-decoration: underline; }
 .hero h1 {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 80px;
+  font-size: 64px;
   letter-spacing: -0.03em;
   line-height: 1.05;
   background: none;
@@ -799,7 +799,7 @@ a:hover { text-decoration: underline; }
 .hero p.hero-sub {
   font-size: 16px;
   line-height: 1.55;
-  max-width: 620px;
+  max-width: 940px;
   margin-bottom: var(--space-7);
 }
 
