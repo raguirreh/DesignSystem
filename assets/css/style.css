@@ -793,14 +793,14 @@ a:hover { text-decoration: underline; }
   background: none;
   -webkit-text-fill-color: currentColor;
   color: var(--text);
-  margin-bottom: var(--space-5);
+  margin-bottom: 24px;
 }
 
 .hero p.hero-sub {
   font-size: 16px;
   line-height: 1.55;
   max-width: 940px;
-  margin-bottom: var(--space-7);
+  margin-bottom: 32px;
 }
 
 /* Buscador estilo referencia: barra grande + botón sólido a la derecha */
@@ -832,7 +832,7 @@ a:hover { text-decoration: underline; }
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 12px;
   max-width: 720px;
-  margin: 16px auto 0;
+  margin: 32px auto 0;
 }
 .hero-chips .chip {
   padding: 14px 16px;
