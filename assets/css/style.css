@@ -195,7 +195,12 @@ a:hover { text-decoration: underline; }
 
 /* ---------- Home ---------- */
 .hero {
-  padding: 88px 24px 64px;
+  min-height: calc(100vh - 61px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 56px 24px;
   text-align: center;
   background:
     radial-gradient(600px 300px at 20% 0%, color-mix(in srgb, var(--accent) 10%, transparent), transparent),
@@ -226,7 +231,7 @@ a:hover { text-decoration: underline; }
 }
 
 .hero h1 {
-  font-size: clamp(40px, 6vw, 64px);
+  font-size: clamp(40px, 9vw, 80px);
   font-weight: 800;
   letter-spacing: -0.035em;
   margin: 0 0 var(--space-4);
@@ -765,7 +770,7 @@ a:hover { text-decoration: underline; }
    ============================================================ */
 :root { --font-display: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; }
 
-.hero { padding: 96px 24px 56px; }
+.hero { padding: 56px 24px; }
 
 .hero-eyebrow {
   background: transparent;
@@ -782,7 +787,7 @@ a:hover { text-decoration: underline; }
 .hero h1 {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(44px, 7vw, 80px);
+  font-size: 80px;
   letter-spacing: -0.03em;
   line-height: 1.05;
   background: none;
@@ -847,6 +852,8 @@ a:hover { text-decoration: underline; }
 .hero-links a:hover { color: var(--accent); text-decoration: none; }
 
 @media (max-width: 720px) {
+  .hero { min-height: auto; padding: 72px 20px 56px; justify-content: flex-start; }
+  .hero h1 { font-size: clamp(38px, 12vw, 56px); }
   .hero-chips { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .hero-search { flex-wrap: nowrap; }
 }
@@ -902,19 +909,6 @@ a:hover { text-decoration: underline; }
    ============================================================ */
 
 /* Hero: iso de Blister con acento de marca (token existente) */
-.hero-logo {
-  display: grid;
-  place-items: center;
-  width: 76px;
-  height: 76px;
-  margin: 0 auto var(--space-5);
-  border-radius: 20px;
-  background: var(--accent-soft);
-  border: 1px solid color-mix(in srgb, var(--accent) 24%, transparent);
-  box-shadow: 0 0 0 8px color-mix(in srgb, var(--accent) 7%, transparent);
-}
-.hero-logo img { width: 46px; height: 46px; display: block; }
-
 /* Iconos reales (no emoji) en las tarjetas del home */
 .section-card .card-icon { color: var(--accent); }
 .section-card .card-icon svg { width: 24px; height: 24px; }
