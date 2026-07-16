@@ -709,6 +709,7 @@
   }
 
   function renderNotFound() {
+    document.body.classList.remove("view-home");
     app.innerHTML =
       '<section class="hero"><h1>Página no encontrada</h1>' +
       '<p class="hero-sub">El contenido que buscas no existe o fue movido.</p>' +
@@ -719,6 +720,9 @@
     document.querySelectorAll("#header-nav a").forEach((a) => {
       a.classList.toggle("active", a.dataset.section === sectionSlug);
     });
+    // En el landing (sin sección) se oculta el buscador del navbar; el hero
+    // ya trae su propio buscador. En las internas se mantiene.
+    document.body.classList.toggle("view-home", sectionSlug == null);
   }
 
   /* ============================================================

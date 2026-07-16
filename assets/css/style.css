@@ -141,6 +141,8 @@ a:hover { text-decoration: underline; }
   transition: border-color 0.15s;
 }
 .search-trigger:hover { border-color: var(--accent); color: var(--text); }
+/* El buscador del navbar se oculta en el landing (el hero ya trae el suyo). */
+body.view-home .search-trigger { display: none; }
 .search-trigger kbd {
   font-family: inherit;
   font-size: 11px;
@@ -740,20 +742,20 @@ a:hover { text-decoration: underline; }
 .hero h1 {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(44px, 7vw, 80px);
+  font-size: 64px;
   letter-spacing: -0.03em;
   line-height: 1.05;
   background: none;
   -webkit-text-fill-color: currentColor;
   color: var(--text);
-  margin-bottom: var(--space-5);
+  margin-bottom: 24px;
 }
 
 .hero p.hero-sub {
   font-size: 16px;
   line-height: 1.55;
-  max-width: 620px;
-  margin-bottom: var(--space-7);
+  max-width: 940px;
+  margin-bottom: 32px;
 }
 
 /* Buscador estilo referencia: barra grande + botón sólido a la derecha */
@@ -786,7 +788,7 @@ a:hover { text-decoration: underline; }
   justify-content: center;
   gap: 12px;
   max-width: 720px;
-  margin: 16px auto 0;
+  margin: 32px auto 0;
 }
 .hero-chips .chip {
   padding: 14px 16px;
