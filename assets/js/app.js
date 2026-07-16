@@ -15,18 +15,8 @@
   let indexReady = false;
   let overrides = {}; // textos sobrescritos por el admin (Supabase)
 
-  /* ---------- Tema ---------- */
-  const savedTheme = localStorage.getItem("ds-theme");
-  if (savedTheme) {
-    document.documentElement.dataset.theme = savedTheme;
-  } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-    document.documentElement.dataset.theme = "dark";
-  }
-  document.getElementById("theme-toggle").addEventListener("click", () => {
-    const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
-    document.documentElement.dataset.theme = next;
-    localStorage.setItem("ds-theme", next);
-  });
+  /* ---------- Tema ----------
+     Interfaz siempre en modo claro; el dark mode se retiró del sitio. */
 
   /* ---------- Utilidades ---------- */
   function escapeHtml(str) {
