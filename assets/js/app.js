@@ -448,8 +448,23 @@
     const eyebrow = homeText("eyebrow", s.tagline || "Design System");
     const title = homeText("title", "¿Qué necesitas saber hoy?");
     const subtitle = homeText("subtitle", s.description || "");
-    const chips = (s.quickSearches || [])
-      .map((q) => '<button class="chip" type="button" data-query="' + escapeHtml(q) + '">' + escapeHtml(q) + "</button>")
+    // Atajos del hero: navegan a la página interna correspondiente.
+    const sectionRoute = (secSlug) => {
+      const sec = manifest.sections.find((s) => s.slug === secSlug);
+      return sec && sec.pages.length ? "#/" + sec.slug + "/" + sec.pages[0].slug : null;
+    };
+    const pageRoute = (secSlug, pageSlug) => {
+      const sec = manifest.sections.find((s) => s.slug === secSlug);
+      const pg = sec && sec.pages.find((p) => p.slug === pageSlug);
+      return pg ? "#/" + secSlug + "/" + pageSlug : null;
+    };
+    const chips = [
+      { label: "Componentes", href: sectionRoute("componentes") },
+      { label: "Tokens", href: pageRoute("fundamentos", "arquitectura-tokens") },
+      { label: "Tipografía", href: pageRoute("fundamentos", "tipografia") },
+    ]
+      .filter((c) => c.href)
+      .map((c) => '<a class="chip" href="' + c.href + '">' + escapeHtml(c.label) + "</a>")
       .join("");
     const cards = manifest.sections
       .map((section) =>
@@ -476,9 +491,6 @@
       '<section class="home-sections"><h2>Explora la documentación</h2><div class="card-grid">' + cards + "</div></section>";
 
     document.getElementById("hero-search").addEventListener("click", () => openSearch());
-    app.querySelectorAll(".chip").forEach((chip) =>
-      chip.addEventListener("click", () => openSearch(chip.dataset.query))
-    );
     if (window.__dsIsAdmin) {
       document.getElementById("edit-home").addEventListener("click", openHomeEditor);
     }

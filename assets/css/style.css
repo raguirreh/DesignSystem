@@ -796,8 +796,9 @@ a:hover { text-decoration: underline; }
   border: 1px solid var(--border);
   color: var(--text);
   text-align: center;
+  text-decoration: none;
 }
-.hero-chips .chip:hover { border-color: var(--text-muted); background: var(--bg-subtle); color: var(--text); transform: translateY(-1px); }
+.hero-chips .chip:hover { border-color: var(--text-muted); background: var(--bg-subtle); color: var(--text); transform: translateY(-1px); text-decoration: none; }
 
 /* Enlaces al pie del hero */
 .hero-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 28px; margin-top: 34px; animation-delay: 0.46s; }
