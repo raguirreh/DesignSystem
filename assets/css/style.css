@@ -781,8 +781,9 @@ a:hover { text-decoration: underline; }
 
 /* Chips en cuadrícula, grandes y con contorno */
 .hero-chips {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 12px;
   max-width: 720px;
   margin: 16px auto 0;
