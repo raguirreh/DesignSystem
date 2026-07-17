@@ -15,18 +15,8 @@
   let indexReady = false;
   let overrides = {}; // textos sobrescritos por el admin (Supabase)
 
-  /* ---------- Tema ---------- */
-  const savedTheme = localStorage.getItem("ds-theme");
-  if (savedTheme) {
-    document.documentElement.dataset.theme = savedTheme;
-  } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-    document.documentElement.dataset.theme = "dark";
-  }
-  document.getElementById("theme-toggle").addEventListener("click", () => {
-    const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
-    document.documentElement.dataset.theme = next;
-    localStorage.setItem("ds-theme", next);
-  });
+  /* ---------- Tema ----------
+     Interfaz siempre en modo claro; el dark mode se retiró del sitio. */
 
   /* ---------- Utilidades ---------- */
   function escapeHtml(str) {
@@ -453,13 +443,161 @@
     return overrides["home:" + key] != null ? overrides["home:" + key] : fallback;
   }
 
+  // Textos editables de la sección de pilotos. Fuente única: se usan para
+  // renderizar (con pt) y para construir el editor de admin. Cada texto se
+  // sobrescribe vía content_overrides con la clave "pilots:<k>".
+  var PILOTS_DEFAULTS = {
+    "head-title": "Empieza donde sea. Cambia lo que sea. Lánzalo más rápido.",
+    "head-sub": "Un design system que se adapta a tu producto, no al revés. Tokens, componentes y temas listos para Sanna, Tsana y Quiérete Sano — empieza desde una plantilla y hazlo tuyo.",
+    "comp-title": "Más de 15 componentes",
+    "comp-desc": "Accesibles y temables, con espaciado, foco visible de 2px y soporte multimarca.",
+    "comp-link": "Explorar",
+    "tmpl-title": "Plantillas listas para pilotar",
+    "tmpl-desc": "Pantallas comunes listas: galería, tokens, inicio de sesión, ajustes, ficha de producto y chat. Solo conecta tu contenido.",
+    "tmpl-link": "Explorar",
+    "brand-title": "Temas que se ajustan a tu marca",
+    "brand-desc": "Sanna, Tsana y Quiérete Sano: el mismo sistema en tres modos. Hazlo tuyo sin empezar de cero.",
+    "brand-link": "Explorar",
+    "brand-app-name": "Quiérete Sano",
+    "brand-app-title": "Pequeñas alegrías, cada día",
+    "brand-app-sub": "Convierte un día común en uno que quieras recordar.",
+    "agent-title": "Un design system que tu agente puede usar",
+    "agent-desc": "Genera temas, explora componentes y obtén docs listos para tu agente desde la CLI o MCP.",
+    "agent-link": "Explorar",
+    "agent-q": "¿Cómo te ayudo hoy?",
+    "agent-prompt": "¿Puedes crearme una página de tabla para Tsana?",
+  };
+  var PILOTS_FIELDS = [
+    { group: "Encabezado", k: "head-title", label: "Título", ml: true },
+    { k: "head-sub", label: "Subtítulo", ml: true },
+    { group: "Card · Componentes", k: "comp-title", label: "Título" },
+    { k: "comp-desc", label: "Descripción", ml: true },
+    { k: "comp-link", label: "Texto del enlace" },
+    { group: "Card · Plantillas", k: "tmpl-title", label: "Título" },
+    { k: "tmpl-desc", label: "Descripción", ml: true },
+    { k: "tmpl-link", label: "Texto del enlace" },
+    { group: "Card · Temas de marca", k: "brand-title", label: "Título" },
+    { k: "brand-desc", label: "Descripción", ml: true },
+    { k: "brand-link", label: "Texto del enlace" },
+    { k: "brand-app-name", label: "Mockup · nombre de la app" },
+    { k: "brand-app-title", label: "Mockup · titular" },
+    { k: "brand-app-sub", label: "Mockup · subtítulo" },
+    { group: "Card · Agente", k: "agent-title", label: "Título" },
+    { k: "agent-desc", label: "Descripción", ml: true },
+    { k: "agent-link", label: "Texto del enlace" },
+    { k: "agent-q", label: "Pregunta" },
+    { k: "agent-prompt", label: "Mensaje de ejemplo", ml: true },
+  ];
+  function pilotsText(k) {
+    var key = "pilots:" + k;
+    return overrides[key] != null ? overrides[key] : PILOTS_DEFAULTS[k];
+  }
+  function pt(k) { return escapeHtml(pilotsText(k)); }
+
+  // Sección "bento" del home: mezcla los 3 temas (Sanna · Tsana · Quiérete Sano)
+  // y muestra cómo armar un piloto con los recursos del sistema.
+  function pilotsSection() {
+    return (
+      '<div class="pilots-sep" aria-hidden="true"></div>' +
+      '<section class="pilots">' +
+      (window.__dsIsAdmin ? '<div class="pilots-editbar"><button class="edit-btn" id="edit-pilots" type="button">✏️ Editar sección de pilotos</button></div>' : "") +
+      '<div class="pb-bento">' +
+        // Título + subtítulo (celda superior izquierda)
+        '<div class="pb-head reveal"><h2>' + pt("head-title") + '</h2>' +
+        '<p>' + pt("head-sub") + '</p></div>' +
+        // Componentes
+        '<div class="pb-card pb-comp reveal"><h3>' + pt("comp-title") + '</h3>' +
+        '<p>' + pt("comp-desc") + '</p>' +
+        '<a class="pb-explore" href="#/componentes/botones">' + pt("comp-link") + ' <span class="ar">→</span></a>' +
+        '<div class="pb-row"><span class="pb-badge sa">Sanna</span><span class="pb-badge ts">Tsana</span><span class="pb-badge pa">Pacífico</span>' +
+        '<span class="pb-avatar">RA</span><span class="pb-check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4 4 10-11"/></svg></span><span class="pb-toggle"></span></div>' +
+        '<div class="pb-btns"><span class="pb-btn2 sec">Secundario</span><span class="pb-btn2 pri">Primario</span></div>' +
+        '<div class="pb-fsearch"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg> Buscar…</div></div>' +
+        // Plantillas (columna derecha, alta)
+        '<div class="pb-card pb-tmpl reveal"><h3>' + pt("tmpl-title") + '</h3>' +
+        '<p>' + pt("tmpl-desc") + '</p>' +
+        '<a class="pb-explore" href="#/recursos/figma">' + pt("tmpl-link") + ' <span class="ar">→</span></a>' +
+        '<div class="pb-tgrid">' +
+          '<div class="pb-thumb wide"><div class="pb-tbar"><i></i><i></i><i></i> Galería de contenido</div><div class="pb-tp pb-gal"><span class="g g1"></span><span class="g g2"></span><span class="g g3"></span><span class="g g4"></span><span class="g g5"></span><span class="g g6"></span></div></div>' +
+          '<div class="pb-thumb"><div class="pb-tbar"><i></i><i></i><i></i> tokens.css</div><div class="pb-tp pb-code"><div><span class="c">/* Tsana */</span></div><div><span class="k">--fill-primary</span>:</div><div>&nbsp;&nbsp;<span class="n">#5D59EF</span>;</div><div><span class="k">--fill-success</span>:</div><div>&nbsp;&nbsp;<span class="s">#1FA78D</span>;</div></div></div>' +
+          '<div class="pb-thumb"><div class="pb-tbar"><i></i><i></i><i></i> Tsana · Login</div><div class="pb-tp pb-login"><b>Bienvenido de nuevo</b><div class="fld"></div><div class="fld"></div><div class="fld b"></div></div></div>' +
+          '<div class="pb-thumb"><div class="pb-tbar"><i></i><i></i><i></i> Sanna · Ajustes</div><div class="pb-tp pb-set"><div class="side"><i class="on"></i><i></i><i></i><i></i></div><div class="body"><i></i><i></i><i></i><i style="width:70%"></i></div></div></div>' +
+          '<div class="pb-thumb"><div class="pb-tbar"><i></i><i></i><i></i> Q. Sano · Ficha</div><div class="pb-tp pb-prod"><div class="ph"></div><div style="flex:1"><b>Plan Bienestar</b><div class="price">S/ 89.00</div><div class="add">Agregar</div></div></div></div>' +
+          '<div class="pb-thumb wide"><div class="pb-tbar"><i></i><i></i><i></i> Agente · ¿Por dónde empezamos?</div><div class="pb-tp pb-chat"><b>¿Por dónde empezamos?</b><div class="bub">Crea un panel de citas para Tsana con tabla y filtros.</div><div class="bar">Escribe un mensaje… <span class="s"></span></div></div></div>' +
+        '</div></div>' +
+        // Temas / marca + mockup
+        '<div class="pb-card pb-brand reveal"><h3>' + pt("brand-title") + '</h3>' +
+        '<p>' + pt("brand-desc") + '</p>' +
+        '<a class="pb-explore" href="#/fundamentos/arquitectura-tokens">' + pt("brand-link") + ' <span class="ar">→</span></a>' +
+        '<div class="pb-dots"><span class="pb-dot sa"><i></i>Sanna</span><span class="pb-dot ts"><i></i>Tsana</span><span class="pb-dot pa"><i></i>Quiérete Sano</span></div>' +
+        '<div class="pb-mini"><div class="pb-mini-top"><b>' + pt("brand-app-name") + '</b> <span class="nx">Inicio · Retos · Yo</span></div>' +
+        '<div class="pb-mini-hero"><b>' + pt("brand-app-title") + '</b><span>' + pt("brand-app-sub") + '</span></div>' +
+        '<div class="pb-mini-grid">' +
+          '<div class="pb-mini-item"><div class="pb-ph"></div><div class="pb-mt"><span class="tag">Nuevo</span><b>Meditar</b><div class="btn">Empezar</div></div></div>' +
+          '<div class="pb-mini-item"><div class="pb-ph p2"></div><div class="pb-mt"><span class="tag">Reto</span><b>Caminar</b><div class="btn">Empezar</div></div></div>' +
+          '<div class="pb-mini-item"><div class="pb-ph p3"></div><div class="pb-mt"><span class="tag">Hábito</span><b>Dormir</b><div class="btn">Empezar</div></div></div>' +
+        '</div></div><span class="pb-aa">Aa</span></div>' +
+        // Agente
+        '<div class="pb-card pb-agent reveal"><h3>' + pt("agent-title") + '</h3>' +
+        '<p>' + pt("agent-desc") + '</p>' +
+        '<a class="pb-explore" href="#/recursos/figma">' + pt("agent-link") + ' <span class="ar">→</span></a>' +
+        '<p class="pb-aq">' + pt("agent-q") + '</p>' +
+        '<div class="pb-ain"><span>' + pt("agent-prompt") + '</span><span class="pb-send"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg></span></div>' +
+        '<div class="pb-atags"><b>blister theme --brand tsana</b><b>MCP</b><b>CLAUDE.md</b></div></div>' +
+      '</div></section>'
+    );
+  }
+
+  // Editor de admin: todos los textos de la sección de pilotos.
+  function openPilotsEditor() {
+    openEditor({
+      title: "Editar sección de pilotos",
+      wide: true,
+      body:
+        '<p class="editor-hint">Cambia cualquier texto de la sección. Se guarda al instante para todos.</p>' +
+        '<div class="editor-fields">' +
+        PILOTS_FIELDS.map(function (f) {
+          var val = pilotsText(f.k);
+          var head = f.group ? '<p class="editor-group">' + escapeHtml(f.group) + "</p>" : "";
+          var input = f.ml
+            ? '<textarea class="editor-input" data-key="pilots:' + f.k + '" rows="2">' + escapeHtml(val) + "</textarea>"
+            : '<input class="editor-input" data-key="pilots:' + f.k + '" value="' + escapeHtml(val) + '" />';
+          return head + '<label class="editor-label">' + escapeHtml(f.label) + input + "</label>";
+        }).join("") +
+        "</div>",
+      onSave: async function (root) {
+        var inputs = root.querySelectorAll(".editor-input");
+        for (var el of inputs) await saveOverride(el.dataset.key, el.value);
+      },
+      onReset: async function () {
+        for (var f of PILOTS_FIELDS) await resetOverride("pilots:" + f.k);
+      },
+      after: renderHome,
+    });
+  }
+
   function renderHome() {
     const s = manifest.site;
     const eyebrow = homeText("eyebrow", s.tagline || "Design System");
     const title = homeText("title", "¿Qué necesitas saber hoy?");
     const subtitle = homeText("subtitle", s.description || "");
-    const chips = (s.quickSearches || [])
-      .map((q) => '<button class="chip" type="button" data-query="' + escapeHtml(q) + '">' + escapeHtml(q) + "</button>")
+    // Atajos del hero: navegan a la página interna correspondiente.
+    const sectionRoute = (secSlug) => {
+      const sec = manifest.sections.find((s) => s.slug === secSlug);
+      return sec && sec.pages.length ? "#/" + sec.slug + "/" + sec.pages[0].slug : null;
+    };
+    const pageRoute = (secSlug, pageSlug) => {
+      const sec = manifest.sections.find((s) => s.slug === secSlug);
+      const pg = sec && sec.pages.find((p) => p.slug === pageSlug);
+      return pg ? "#/" + secSlug + "/" + pageSlug : null;
+    };
+    const chips = [
+      { label: "Componentes", href: sectionRoute("componentes") },
+      { label: "Tokens", href: pageRoute("fundamentos", "arquitectura-tokens") },
+      { label: "Tipografía", href: pageRoute("fundamentos", "tipografia") },
+    ]
+      .filter((c) => c.href)
+      .map((c) => '<a class="chip" href="' + c.href + '">' + escapeHtml(c.label) + "</a>")
       .join("");
     const cards = manifest.sections
       .map((section) =>
@@ -474,8 +612,6 @@
     app.innerHTML =
       '<section class="hero">' +
       (window.__dsIsAdmin ? '<button class="edit-btn edit-btn--hero" id="edit-home" type="button">✏️ Editar textos</button>' : "") +
-      '<span class="hero-logo"><img src="assets/img/blister-iso.svg" alt="Blister" /></span>' +
-      '<span class="hero-eyebrow">' + escapeHtml(eyebrow) + "</span>" +
       "<h1>" + escapeHtml(title) + "</h1>" +
       '<p class="hero-sub">' + escapeHtml(subtitle) + "</p>" +
       '<button class="hero-search" type="button" id="hero-search">' +
@@ -483,14 +619,14 @@
       '<span class="hero-search-ph">Busca componentes, colores, principios…</span>' +
       '<span class="hero-search-btn">Buscar</span></button>' +
       '<div class="hero-chips">' + chips + "</div></section>" +
-      '<section class="home-sections"><h2>Explora la documentación</h2><div class="card-grid">' + cards + "</div></section>";
+      '<section class="home-sections"><h2>Explora la documentación</h2><div class="card-grid">' + cards + "</div></section>" +
+      pilotsSection();
 
     document.getElementById("hero-search").addEventListener("click", () => openSearch());
-    app.querySelectorAll(".chip").forEach((chip) =>
-      chip.addEventListener("click", () => openSearch(chip.dataset.query))
-    );
     if (window.__dsIsAdmin) {
       document.getElementById("edit-home").addEventListener("click", openHomeEditor);
+      var editPilots = document.getElementById("edit-pilots");
+      if (editPilots) editPilots.addEventListener("click", openPilotsEditor);
     }
     setupReveal();
     setActiveNav(null);
@@ -709,6 +845,7 @@
   }
 
   function renderNotFound() {
+    document.body.classList.remove("view-home");
     app.innerHTML =
       '<section class="hero"><h1>Página no encontrada</h1>' +
       '<p class="hero-sub">El contenido que buscas no existe o fue movido.</p>' +
@@ -719,6 +856,9 @@
     document.querySelectorAll("#header-nav a").forEach((a) => {
       a.classList.toggle("active", a.dataset.section === sectionSlug);
     });
+    // En el landing (sin sección) se oculta el buscador del navbar; el hero
+    // ya trae su propio buscador. En las internas se mantiene.
+    document.body.classList.toggle("view-home", sectionSlug == null);
   }
 
   /* ============================================================

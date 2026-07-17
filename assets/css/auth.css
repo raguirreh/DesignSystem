@@ -288,6 +288,8 @@ body.auth-locked .site-footer { display: none !important; }
 .editor-hint { margin: 0 0 12px; font-size: 13px; color: var(--text-muted); }
 
 .editor-fields { display: flex; flex-direction: column; gap: 16px; }
+.editor-group { margin: 10px 0 -4px; font-size: 12px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: var(--accent); }
+.editor-group:first-child { margin-top: 0; }
 .editor-label { display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 600; color: var(--text); }
 .editor-input {
   font: 15px var(--font); padding: 10px 12px;
